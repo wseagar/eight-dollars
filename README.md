@@ -1,4 +1,4 @@
-﻿# eight-dollars
+﻿# eight-dollars - firefox port
 
 eight-dollars can help you tell the difference between actual verified accounts and twitter blue users. Just install the extension and see the difference. Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://twitter.com/iWaltzAround)
 
