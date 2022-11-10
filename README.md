@@ -12,14 +12,16 @@ eight-dollars can help you tell the difference between actual verified accounts 
 
 ![chrome extension page](./assets/intro-1.png)
 
-3. Download the extension here
+3. [Download the extension here](https://github.com/wseagar/eight-dollars/releases/download/v1.0/eight-dollars-v1.0.zip)
 
-4. Click on the `Load Unpacked` button and select the folder you just downloaded
+4. Unzip the folder
+
+5. Click on the `Load Unpacked` button and select the folder you just downloaded
 
 ![chrome extension page](./assets/intro-2.png)
 
 ![file upload modal](./assets/intro-3.png)
 
-5. Check that the extension is enabled, and you're good to go!
+6. Check that the extension is enabled, and you're good to go!
 
 ![chrome extension page](./assets/intro-4.png)
