@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Twitter Paid Verification",
+    "name": "Eight Dollars",
     "version": "1.0",
-    "description": "Displays the difference between people that have paid for verification and people that were given it on Twitter",
+    "description": "Eight Dollars can help you tell the difference between actual verified accounts and twitter blue users.",
     "icons": {
         "16": "./assets/16.png",
         "32": "./assets/32.png",
