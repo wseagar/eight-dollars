@@ -6,6 +6,8 @@ eight-dollars can help you tell the difference between actual verified accounts 
 
 ## How to install
 
+> (Currenting pending approval to Chrome Web Store, installing as a developer extension is a temporary measure until its approved)
+
 1. Open Google Chrome and visit `chrome://extensions`
 
 2. Enable Developer Mode by clicking on the `Developer mode` toggle
@@ -22,6 +24,6 @@ eight-dollars can help you tell the difference between actual verified accounts 
 
 ![file upload modal](./assets/intro-3.png)
 
-6. Check that the extension is enabled, and you're good to go!
+6. Check that the extension is enabled, and you're good to go! (You can also disable Developer Mode mode)
 
 ![chrome extension page](./assets/intro-4.png)
