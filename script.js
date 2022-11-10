@@ -99,18 +99,14 @@ async function mutateHeader() {
   console.log(props);
 
   if (isVerified) {
-    const nodes = document.querySelectorAll(
-      'svg path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]'
-    );
+    const nodes = verificationIcon.querySelectorAll(BLUE_CHECK_PATTERN);
     for (const node of nodes) {
       changeVerified(node);
     }
   }
 
   if (isBlueVerified) {
-    const nodes = document.querySelectorAll(
-      'svg path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]'
-    );
+    const nodes = verificationIcon.querySelectorAll(BLUE_CHECK_PATTERN);
     console.log("NUMBER OF NODES: ", nodes.length);
     for (const node of nodes) {
       changeBlueVerified(node);
