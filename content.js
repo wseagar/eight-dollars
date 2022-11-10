@@ -1,7 +1,6 @@
-const s = document.createElement('script', { id: 'customScripty' });
+const s = document.createElement('script', { id: 'eight-dollars' });
 s.src = chrome.runtime.getURL('script.js');
 s.onload = function() {
     this.remove();
 };
-console.log("APPENDING SCRIPT TO DOCUMENT");
 document.head.appendChild(s);

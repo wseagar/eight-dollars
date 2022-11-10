@@ -61,7 +61,6 @@ async function main() {
             const elms = node.querySelectorAll(selector);
             for (const elm of elms) {
               const svg = node.querySelector(BLUE_CHECK_PATTERN);
-              console.log("Found a match", elm, svg);
               if (svg) {
                 const names = Object.getOwnPropertyNames(elm);
                 const reactPropsName = names.find((name) =>
