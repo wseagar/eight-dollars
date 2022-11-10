@@ -4,7 +4,7 @@ eight-dollars can help you tell the difference between actual verified accounts 
 
 ![Some tweets](./assets/example.png)
 
-## How to install
+## How to install (Chrome)
 
 > (Currenting pending approval to Chrome Web Store, installing as a developer extension is a temporary measure until its approved)
 
