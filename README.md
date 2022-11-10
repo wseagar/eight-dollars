@@ -1,6 +1,8 @@
 ﻿# eight-dollars
 
-eight-dollars can help you tell the difference between actual verified accounts and twitter blue users. Just install the extension and see the difference. Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://twitter.com/iWaltzAround)
+eight-dollars can help you tell the difference between actual verified accounts and twitter blue users. Just install the extension and see the difference.
+
+Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://twitter.com/iWaltzAround). Found this useful? [Buy us a coffee here](https://www.buymeacoffee.com/eightdollars).
 
 ![Some tweets](./assets/example.png)
 
