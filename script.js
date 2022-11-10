@@ -170,13 +170,9 @@ function changeBlueVerified(elm) {
 
 async function main() {
   mutateHeader();
-  setInterval(() => {
+  setTimeout(() => {
     mutateTweets();
-  }, 3000);
-
-  addEventListener("scroll", (event) => {
-    mutateTweets();
-  });
+  }, 5000);
 }
 
 main();
