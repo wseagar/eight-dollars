@@ -32,16 +32,14 @@ const profileNode =
 
 async function main() {
   const observer = new MutationObserver(function (mutations, observer) {
-    console.log("[MUTATION OBSERVER] MUTATION DETECTED");
     for (const mutation of mutations) {
-      console.log("[MUTATION OBSERVER] MUTATION: ", mutation);
       // run query selector on each added node
       const selectors = [headerNode, tweets, profileNode];
       for (const selector of selectors) {
         for (const node of mutation.addedNodes) {
           if (node.nodeType === 1) {
-            const elm = node.querySelector(selector);
-            if (elm) {
+            const elms = node.querySelectorAll(selector);
+            for (const elm of elms) {
               console.log("Found a match", elm);
               const svg = node.querySelector(BLUE_CHECK_PATTERN);
               if (svg) {
