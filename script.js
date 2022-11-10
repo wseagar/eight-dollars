@@ -66,7 +66,7 @@ async function main() {
       'svg path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]'
     );
     for (const node of nodes) {
-      node.style = "color: black;";
+      node.style = "color: #7b5804;";
     }
   }
 
