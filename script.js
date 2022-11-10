@@ -103,9 +103,7 @@ async function mutateHeader() {
     for (const node of nodes) {
       changeVerified(node);
     }
-  }
-
-  if (isBlueVerified) {
+  } else if (isBlueVerified) {
     const nodes = verificationIcon.querySelectorAll(BLUE_CHECK_PATTERN);
     console.log("NUMBER OF NODES: ", nodes.length);
     for (const node of nodes) {
@@ -145,9 +143,7 @@ async function mutateTweets() {
     const svg = tweet.querySelector(BLUE_CHECK_PATTERN);
     if (isVerified) {
       changeVerified(svg);
-    }
-
-    if (isBlueVerified) {
+    } else if (isBlueVerified) {
       changeBlueVerified(svg);
     }
   }
