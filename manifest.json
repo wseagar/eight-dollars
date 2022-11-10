@@ -1,16 +1,35 @@
 {
     "manifest_version": 3,
-    "name": "Twitter Legacy Verification",
+    "name": "Twitter Paid Verification",
     "version": "1.0",
-    "description": "Displays legacy twitter verification differently from new Twitter Blue verification",
+    "description": "Displays the difference between people that have paid for verification and people that were given it on Twitter",
+    "icons": {
+        "16": "./assets/16.png",
+        "32": "./assets/32.png",
+        "48": "./assets/48.png",
+        "256": "./assets/256.png",
+        "512": "./assets/512.png"
+    },
     "content_scripts": [
         {
-            "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*"],
-            "js": ["content.js"]
+            "matches": [
+                "https://twitter.com/*",
+                "https://mobile.twitter.com/*"
+            ],
+            "js": [
+                "content.js"
+            ]
         }
     ],
-    "web_accessible_resources": [{
-        "resources": ["script.js"],
-        "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*"]
-      }]
-  }
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "script.js"
+            ],
+            "matches": [
+                "https://twitter.com/*",
+                "https://mobile.twitter.com/*"
+            ]
+        }
+    ]
+}
