@@ -1,35 +1,21 @@
 {
-    "manifest_version": 3,
-    "name": "Eight Dollars",
-    "version": "1.1",
-    "description": "Eight Dollars can help you tell the difference between actual verified accounts and twitter blue users.",
-    "icons": {
-        "16": "./assets/16.png",
-        "32": "./assets/32.png",
-        "48": "./assets/48.png",
-        "256": "./assets/256.png",
-        "512": "./assets/512.png"
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "https://twitter.com/*",
-                "https://mobile.twitter.com/*"
-            ],
-            "js": [
-                "content.js"
-            ]
-        }
-    ],
-    "web_accessible_resources": [
-        {
-            "resources": [
-                "script.js"
-            ],
-            "matches": [
-                "https://twitter.com/*",
-                "https://mobile.twitter.com/*"
-            ]
-        }
-    ]
+  "manifest_version": 2,
+
+  "name": "Eight Dollars",
+  "version": "1.1",
+  "description": "Eight Dollars can help you tell the difference between actual verified accounts and twitter blue users.",
+  "icons": {
+    "16": "./assets/16.png",
+    "32": "./assets/32.png",
+    "48": "./assets/48.png",
+    "256": "./assets/256.png",
+    "512": "./assets/512.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "web_accessible_resources": ["script.js"]
 }
