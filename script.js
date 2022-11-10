@@ -11,7 +11,6 @@ function changeVerified(elm, isSmall) {
     } else {
       elm.parentElement.parentElement.parentElement.innerHTML = big;
     }
-    elm.parentElement.parentElement.parentElement.innerHTML = ``;
   } catch (e) {
     console.log(elm);
     throw e;
