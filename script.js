@@ -25,10 +25,9 @@ function changeBlueVerified(elm) {
 const headerNode =
   "span.css-901oao.css-16my406.r-xoduu5.r-18u37iz.r-1q142lx.r-poiln3.r-bcqeeo.r-qvutc0";
 const tweets =
-  "div.css-901oao.r-18jsvk2.r-xoduu5.r-18u37iz.r-1q142lx.r-37j5jr.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0";
+  "div.css-901oao.r-xoduu5.r-18u37iz.r-1q142lx.r-37j5jr.r-16dba41.r-bcqeeo.r-qvutc0";
 const profileNode =
   "span.css-901oao.css-16my406.r-xoduu5.r-18u37iz.r-1q142lx.r-poiln3.r-adyw6z.r-135wba7.r-bcqeeo.r-qvutc0";
-
 
 async function main() {
   const observer = new MutationObserver(function (mutations, observer) {
