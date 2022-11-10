@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "Twitter Legacy Verification",
+    "version": "1.0",
+    "description": "Displays legacy twitter verification differently from new Twitter Blue verification",
+    "content_scripts": [
+        {
+            "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*"],
+            "js": ["src/content.js"]
+        }
+    ],
+    "web_accessible_resources": [{
+        "resources": ["script.js"],
+        "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*"]
+      }]
+  }
