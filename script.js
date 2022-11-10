@@ -1,3 +1,4 @@
+const BLUE_CHECK_PATTERN = 'svg path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]';
 
 function getElementAsync(selector) {
   return new Promise((resolve) => {
@@ -15,7 +16,7 @@ function getElementAsync(selector) {
       if (foundElement == null) {
         console.log("Timed out: didn't find element with selector", selector);
         resolve(null);
-      }      
+      }
       resolve(foundElement);
     }
 
@@ -32,6 +33,88 @@ function getElementAsync(selector) {
       subtree: true,
     });
   });
+}
+
+function getElementsAsync(selector) {
+  return new Promise((resolve) => {
+    let timeoutId;
+    let observer;
+
+    function finish(foundElement) {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      if (observer) {
+        observer.disconnect();
+      }
+
+      if (foundElement == null) {
+        console.log("Timed out: didn't find element with selector", selector);
+        resolve(null);
+      }
+      resolve(foundElement);
+    }
+
+    observer = new MutationObserver(function (mutations, observer) {
+      const elm = document.querySelectorAll(selector);
+      if (elm) {
+        finish(elm);
+      }
+    });
+
+    timeoutId = setTimeout(finish, 5000, null);
+    observer.observe(document, {
+      childList: true,
+      subtree: true,
+    });
+  });
+}
+
+async function mutateHeader() {}
+
+async function mutateTweets() {
+  const tweets = await getElementsAsync(
+    "div.css-901oao.r-18jsvk2.r-xoduu5.r-18u37iz.r-1q142lx.r-37j5jr.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0"
+  );
+  if (!tweets) {
+    console.log("No tweets with verification found");
+    return;
+  }
+
+  for (const tweet of tweets) {
+    const names = Object.getOwnPropertyNames(tweet);
+    const reactPropsName = names.find((name) =>
+      name.startsWith("__reactProps")
+    );
+    if (!reactPropsName) {
+      console.log("Couldn't find react props");
+      return;
+    }
+    console.log(reactPropsName);
+    const props = verificationIcon[reactPropsName];
+    console.log(props);
+
+    const isBlueVerified =
+      props.children.props.children[0][0].props.isBlueVerified;
+    const isVerified = props.children.props.children[0][0].props.isVerified;
+
+    const svg = tweet.querySelector(BLUE_CHECK_PATTERN);
+    if (isVerified) {
+      changeVerified(svg);
+    }
+
+    if (isBlueVerified) {
+      changeBlueVerified(svg);
+    }
+  }
+}
+
+function changeVerified(elm) {
+
+}
+
+function changeBlueVerified(elm) {
+
 }
 
 async function main() {
@@ -74,6 +157,7 @@ async function main() {
     const nodes = document.querySelectorAll(
       'svg path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]'
     );
+    console.log("NUMBER OF NODES: ", nodes.length);
     for (const node of nodes) {
       node.parentElement.parentElement.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M22.25 12C22.25 10.57 21.37 9.33 20.06 8.66C20.52 7.27 20.26 5.76 19.25 4.75C18.24 3.74 16.73 3.48 15.34 3.94C14.68 2.63 13.43 1.75 12 1.75C10.57 1.75 9.33 2.63 8.67 3.94C7.27 3.48 5.76 3.74 4.75 4.75C3.74 5.76 3.49 7.27 3.95 8.66C2.64 9.33 1.75 10.57 1.75 12C1.75 13.43 2.64 14.67 3.95 15.34C3.49 16.73 3.74 18.24 4.75 19.25C5.76 20.26 7.27 20.51 8.66 20.06C9.33 21.37 10.57 22.25 12 22.25C13.43 22.25 14.68 21.37 15.34 20.06C16.73 20.51 18.24 20.26 19.25 19.25C20.26 18.24 20.52 16.73 20.06 15.34C21.37 14.67 22.25 13.43 22.25 12Z" fill="#1D9BF0"/>
