@@ -3,8 +3,6 @@ input {
 }
 
 body {
-  margin: 0 auto;
-  height: auto;
 
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -25,7 +23,7 @@ p {
   justify-content: center;
   place-items: center;
   overflow: hidden;
-  padding: 2rem;
+  padding: 1rem;
   position: relative;
   border-radius: 20px;
   box-sizing: border-box;
