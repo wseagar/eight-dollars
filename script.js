@@ -64,23 +64,95 @@ function changeBlueVerified(elm, isSmall) {
   }
 }
 
-const headerNode =
-  "span.css-901oao.css-16my406.r-xoduu5.r-18u37iz.r-1q142lx.r-poiln3.r-bcqeeo.r-qvutc0";
-const tweets =
-  "div.css-901oao.r-xoduu5.r-18u37iz.r-1q142lx.r-37j5jr.r-16dba41.r-bcqeeo.r-qvutc0";
-const profileNode =
-  "span.css-901oao.css-16my406.r-xoduu5.r-18u37iz.r-1q142lx.r-poiln3.r-adyw6z.r-135wba7.r-bcqeeo.r-qvutc0";
+const $ = (selector) => document.querySelector(selector)
 
-const search = `form > * > * > * > * > * > * > * > * > * > * > * > * > ${tweets}`;
-const chat = `#layers > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > ${tweets}`;
-const youMightLike = `div > aside > div:nth-child(2) > * > * >* > * > * > * > * > a > div > ${tweets}`;
-const spaces = `div.css-1dbjc4n.r-1awozwy.r-ar5de.r-1777fci.r-117bsoe.r-4ukpa0.r-1pn2ns4 ${headerNode}`;
+function findHeaderNodeClassName() {
+  const stableElement = $('[role=heading] [aria-label="Verified account"]')
+  if (stableElement) {
+    // walk one level up
+    const element = stableElement.parentElement
+    return `.${[...element.classList].join('.')}`
+  }
+  return null
+}
+function findTweetsClassName() {
+  const stableElement = $('[aria-label="Verified account"]')
+  if (stableElement) {
+    // walk one level up
+    const element = stableElement.parentElement
+    return `.${[...element.classList].join('.')}`
+  }
+  return null
+}
+function findProfileNodeClassName() {
+  const stableElement = $('[aria-label="Provides details about verified accounts."]')
+  if (stableElement) {
+    // walk two levels up
+    const element = stableElement.parentElement.parentElement
+    return `.${[...element.classList].join('.')}`
+  }
+  return null
+}
+function findPopupHeaderNodeClassName() {
+  const stableElement = $('[role=link] [aria-label="Verified account"]')
+  if (stableElement) {
+    // walk one level up
+    const element = stableElement.parentElement
+    return `.${[...element.classList].join('.')}`
+  }
+  return null
+}
+
+function findSpacesClassName() {
+  const stableElement = $('[data-testid="SpaceDockExpanded"] [aria-label="Verified account"]')
+  if (stableElement) {
+    // walk seven levels up
+    const element = stableElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
+    return `.${[...element.classList].join('.')}`
+  }
+  return null
+}
+
+function generateSelectors() {
+  const headerNode = findHeaderNodeClassName()
+  const tweets = findTweetsClassName()
+  const profileNode = findProfileNodeClassName()
+  const spaces = findSpacesClassName()
+  const popupHeaderNode = findPopupHeaderNodeClassName()
+
+  let selectors = []
+  if (headerNode !== null) {
+    selectors.push(headerNode)
+  }
+  if (popupHeaderNode !== null) {
+    selectors.push(popupHeaderNode)
+
+    if (spaces !== null) {
+      const spacesSelector = `${spaces} ${popupHeaderNode}`;
+      selectors.push(spacesSelector)
+    }
+  }
+  if (tweets !== null) {
+    selectors.push(tweets)
+
+    const search = `form > * > * > * > * > * > * > * > * > * > * > * > * > ${tweets}`;
+    const chat = `#layers > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > ${tweets}`;
+    const youMightLike = `div > aside > div:nth-child(2) > * > * >* > * > * > * > * > a > div > ${tweets}`;
+    selectors.push(search)
+    selectors.push(chat)
+    selectors.push(youMightLike)
+  }
+  if (profileNode !== null) {
+    selectors.push(profileNode)
+  }
+  return selectors
+}
 
 async function main() {
   const observer = new MutationObserver(function (mutations, observer) {
+    const selectors = generateSelectors()
     for (const mutation of mutations) {
       // run query selector on each added node
-      const selectors = [search, chat, youMightLike, spaces, headerNode, tweets, profileNode];
       for (const selector of selectors) {
         const isSmall = selectors.indexOf(selector) < 4;
         for (const node of mutation.addedNodes) {
