@@ -93,11 +93,21 @@ function findProfileNodeClassName() {
   }
   return null
 }
-function findSpacesClassName() {
-  const stableElement = $('[data-testid="SpaceDockExpanded"] [data-testid^="UserAvatar-Container-"]')
+function findPopupHeaderNodeClassName() {
+  const stableElement = $('[role=link] [aria-label="Verified account"]')
   if (stableElement) {
-    // walk three levels up
-    const element = stableElement.parentElement.parentElement.parentElement
+    // walk one level up
+    const element = stableElement.parentElement
+    return `.${[...element.classList].join('.')}`
+  }
+  return null
+}
+
+function findSpacesClassName() {
+  const stableElement = $('[data-testid="SpaceDockExpanded"] [aria-label="Verified account"]')
+  if (stableElement) {
+    // walk seven levels up
+    const element = stableElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
     return `.${[...element.classList].join('.')}`
   }
   return null
@@ -108,14 +118,18 @@ function generateSelectors() {
   const tweets = findTweetsClassName()
   const profileNode = findProfileNodeClassName()
   const spaces = findSpacesClassName()
+  const popupHeaderNode = findPopupHeaderNodeClassName()
 
   let selectors = []
   if (headerNode !== null) {
     selectors.push(headerNode)
+  }
+  if (popupHeaderNode !== null) {
+    selectors.push(popupHeaderNode)
 
     if (spaces !== null) {
-      const spaces = `${spaces} ${headerNode}`;
-      selectors.push(spaces)
+      const spacesSelector = `${spaces} ${popupHeaderNode}`;
+      selectors.push(spacesSelector)
     }
   }
   if (tweets !== null) {
