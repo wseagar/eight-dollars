@@ -90,6 +90,10 @@ input[type="text"]:focus {
   border-color: #1da1f2;
 }
 
+.text-option label {
+  font-size: 0.8rem;
+}
+
 .inputs {
   text-align: left;
 }
