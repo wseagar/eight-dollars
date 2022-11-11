@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Eight Dollars Options</title>
 
-    <script src="options.chrome.js"></script>
-    <link rel="stylesheet" href="options.chrome.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="brand-logo"></div>
-      <div id="status"></div>
-      <div class="inputs">
-        <div class="options">
-          <div class="option text-option">
-            <label for="textVerifiedLabel">Verified Label</label>
-            <input type="text" id="textVerifiedLabel" />
-          </div>
-          <div class="option text-option">
-            <label for="textTwitterBlueLabel">Twitter Blue Label</label>
-            <input type="text" id="textTwitterBlueLabel" />
-          </div>
-          <div class="option checkboxes">
-            <label for="memeMode"
-              >Comic Sans Icon + Font for Twitter Blue</label
-            >
-            <input type="checkbox" id="memeMode" />
-          </div>
-          <div class="option checkboxes">
-            <label for="textEnabled">Enable Text</label>
-            <input type="checkbox" id="textEnabled" />
-          </div>
-          <div class="option text-option checkboxes">
-            <label for="textEnableBorder">Enable Border</label>
-            <input type="checkbox" id="textEnableBorder" />
-          </div>
-          <button id="save">Save</button>
+<head>
+  <meta charset="utf-8" />
+  <title>Eight Dollars Options</title>
+
+  <script src="options.chrome.js"></script>
+  <link rel="stylesheet" href="options.chrome.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="brand-logo"></div>
+    <div id="status"></div>
+    <p>Edit your twitter labels here.</p>
+    <div class="inputs">
+      <div class="options">
+        <div class="option text-option">
+          <label for="textVerifiedLabel">Verified Label</label>
+          <input type="text" id="textVerifiedLabel" />
         </div>
+        <div class="option text-option">
+          <label for="textTwitterBlueLabel">Twitter Blue Label</label>
+          <input type="text" id="textTwitterBlueLabel" />
+        </div>
+        <div class="option checkboxes">
+          <label for="memeMode">Comic Sans Icon + Font for Twitter Blue</label>
+          <input type="checkbox" id="memeMode" />
+        </div>
+        <div class="option checkboxes">
+          <label for="textEnabled">Enable Text</label>
+          <input type="checkbox" id="textEnabled" />
+        </div>
+        <div class="option text-option checkboxes">
+          <label for="textEnableBorder">Enable Border</label>
+          <input type="checkbox" id="textEnableBorder" />
+        </div>
+        <button id="save">Save</button>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

@@ -1,42 +1,46 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap");
-
 input {
-  caret-color: red;
+  caret-color: #fff;
 }
 
 body {
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
+  margin: 0 auto;
+
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: black;
+}
+
+p {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   text-align: center;
   justify-content: center;
   place-items: center;
   overflow: hidden;
-  font-family: poppins;
-}
-
-.container {
+  padding: 2rem;
   position: relative;
   border-radius: 20px;
-  padding: 10px 40px;
   box-sizing: border-box;
-  background: #ecf0f3;
-  box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+  background: #000;
 }
 
 .brand-logo {
-  height: 70px;
-  width: 70px;
+  height: 40px;
+  width: 40px;
   background: url("icon.png");
   background-repeat: no-repeat;
   background-size: contain;
   margin: auto;
   border-radius: 50%;
   box-sizing: border-box;
-  box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px white;
 }
+
 #status {
   font-weight: 900;
   color: #1da1f2;
@@ -52,10 +56,13 @@ button {
   border: none;
   outline: none;
   box-sizing: border-box;
+  font-size: 1rem;
 }
 
 label {
   margin-bottom: 3px;
+  color: #fff;
+  padding-bottom: 0.25rem;
 }
 
 input::placeholder {
@@ -63,13 +70,14 @@ input::placeholder {
 }
 
 input {
-  background: #ecf0f3;
-  padding: 10px;
+  background: #000;
+  padding: 1.5rem;
   padding-left: 20px;
   height: 30px;
-  font-size: 12px;
-  border-radius: 50px;
-  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  border-radius: 4px;
+  border: 1px solid #2f3336;
+  color: #fff;
+  font-size: 1rem;
 }
 
 input[type="checkbox"] {
@@ -80,17 +88,21 @@ input[type="checkbox"] {
 .inputs {
   text-align: left;
   margin-top: 15px;
+  border-top: 1px solid #2f3336;
 }
 
 .option {
   margin-top: 13px;
 }
+
 .option.checkboxes {
   display: flex !important;
 }
+
 .option.checkboxes label {
   width: 80% !important;
 }
+
 .option.checkboxes input {
   width: 20% !important;
 }
@@ -103,7 +115,6 @@ button {
   border-radius: 20px;
   cursor: pointer;
   font-weight: 900;
-  box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
   transition: 0.5s;
 }
 
@@ -115,4 +126,5 @@ h1 {
   position: absolute;
   top: 0;
   left: 0;
+  color: #fff;
 }
