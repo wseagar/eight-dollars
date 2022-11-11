@@ -10,6 +10,7 @@ function onTextEnabledChange() {
 function saveOptions() {
   const memeMode = document.getElementById("memeMode").checked;
   const textEnabled = document.getElementById("textEnabled").checked;
+  const removeBlueMark = document.getElementById("removeBlueMark").checked;
   const textVerifiedLabel = document.getElementById("textVerifiedLabel").value;
   const twitterBlueVerifiedLabel = document.getElementById(
     "textTwitterBlueLabel"
@@ -24,6 +25,7 @@ function saveOptions() {
         twitterBlueLabel: textEnabled ? twitterBlueVerifiedLabel : "",
         enableBorder: textEnabled ? textEnableBorder : true
       },
+      removeBlueMark: removeBlueMark ? removeBlueMark : false
     },
     function () {
       const status = document.getElementById("status");
@@ -45,10 +47,12 @@ function restoreOptions() {
         twitterBlueLabel: "Paid",
         enableBorder: true,
       },
+      removeBlueMark: false
     },
     function (items) {
       document.getElementById("memeMode").checked = items.memeMode;
       document.getElementById("textEnabled").checked = items.textEnabled;
+      document.getElementById("removeBlueMark").checked = items.removeBlueMark;
       document.getElementById("textVerifiedLabel").value =
         items.textOptions.verifiedLabel;
       document.getElementById("textTwitterBlueLabel").value =

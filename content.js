@@ -6,6 +6,7 @@ const defaultConfig = {
     twitterBlueLabel: "Paid",
     enableBorder: true
   },
+  removeBlueMark: false
 };
 
 function createSettingsDomNode(items) {
