@@ -29,3 +29,7 @@ Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://t
 6. Check that the extension is enabled, and you're good to go! (You can also disable Developer Mode mode)
 
 ![chrome extension page](./assets/intro-4.png)
+
+## How to install (Firefox)
+
+See https://twitter.com/willseagar/status/1590850922099666944
