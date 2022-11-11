@@ -4,6 +4,7 @@ input {
 
 body {
   margin: 0 auto;
+  height: auto;
 
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -65,8 +66,9 @@ label {
   padding-bottom: 0.25rem;
 }
 
+
 input::placeholder {
-  color: gray;
+  color: #888;
 }
 
 input {
@@ -85,14 +87,20 @@ input[type="checkbox"] {
   height: 30px;
 }
 
+input[type="text"]:focus {
+  border-color: #1da1f2;
+}
+
 .inputs {
   text-align: left;
-  margin-top: 15px;
-  border-top: 1px solid #2f3336;
 }
 
 .option {
   margin-top: 13px;
+}
+
+.space {
+  padding-top: 2rem;
 }
 
 .option.checkboxes {
