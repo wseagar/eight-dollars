@@ -29,6 +29,7 @@ p {
   border-radius: 20px;
   box-sizing: border-box;
   background: #000;
+  width: 480px;
 }
 
 .brand-logo {
