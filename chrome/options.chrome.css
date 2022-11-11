@@ -3,8 +3,6 @@ input {
 }
 
 body {
-  margin: 0 auto;
-  height: auto;
 
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -14,6 +12,7 @@ body {
 p {
   color: #fff;
   font-size: 1.2rem;
+
 }
 
 .container {
@@ -24,7 +23,7 @@ p {
   justify-content: center;
   place-items: center;
   overflow: hidden;
-  padding: 2rem;
+  padding: 1rem;
   position: relative;
   border-radius: 20px;
   box-sizing: border-box;
@@ -90,6 +89,10 @@ input[type="checkbox"] {
 
 input[type="text"]:focus {
   border-color: #1da1f2;
+}
+
+.text-option label {
+  font-size: 0.8rem;
 }
 
 .inputs {
