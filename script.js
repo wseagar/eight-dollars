@@ -45,7 +45,7 @@ function changeVerified(elm, isSmall) {
 }
 
 function changeBlueVerified(elm, isSmall) {
-  const svg = MEME_MODE ? `${COMIC_SANS_BLUE_CHECK_SVG}` : `${REGULAR_BLUE_DOLLAR_SVG}`;
+  const svg = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG}` : `${REGULAR_BLUE_DOLLAR_SVG}`;
   const small = `${svg}`;
   const big = `
     <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: 0.2rem;'>
