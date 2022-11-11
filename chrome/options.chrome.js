@@ -15,10 +15,12 @@ function saveOptions() {
     "textTwitterBlueLabel"
   ).value;
   const textEnableBorder = document.getElementById("textEnableBorder").checked;
+  const removeBlueVerification = document.getElementById("removeBlueVerification").checked;
   chrome.storage.sync.set(
     {
       memeMode,
       textEnabled,
+      removeBlueVerification,
       textOptions: {
         verifiedLabel: textEnabled ? textVerifiedLabel : "",
         twitterBlueLabel: textEnabled ? twitterBlueVerifiedLabel : "",
@@ -40,6 +42,7 @@ function restoreOptions() {
     {
       memeMode: false,
       textEnabled: true,
+      removeBlueVerification: false,
       textOptions: {
         verifiedLabel: "Verified",
         twitterBlueLabel: "Paid",
@@ -55,6 +58,8 @@ function restoreOptions() {
         items.textOptions.twitterBlueLabel;
       document.getElementById("textEnableBorder").checked =
         items.textOptions.enableBorder;
+      document.getElementById("removeBlueVerification").checked =
+          items.removeBlueVerification;
       onTextEnabledChange();
     }
   );
