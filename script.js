@@ -1,6 +1,5 @@
 const config = document.getElementById("eight-dollars-settings");
 const data = JSON.parse(config.innerText);
-console.log(data);
 
 const MEME_MODE = data.memeMode;
 const TEXT_ENABLED = data.textEnabled;
