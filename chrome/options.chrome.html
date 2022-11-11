@@ -11,36 +11,45 @@
 
 <body>
   <div class="container">
-    <div class="brand-logo"></div>
-    <div id="status"></div>
-    <p>Edit your twitter labels here.</p>
+    <div class="header">
+      <h1>Verified Settings</h1>
+      <button id="close">Close</button>
+    </div>
     <div class="inputs">
       <div class="options">
-        <div class="option text-option">
-          <label for="textVerifiedLabel">Verified Label</label>
-          <input type="text" id="textVerifiedLabel" />
-        </div>
-        <div class="option text-option">
-          <label for="textTwitterBlueLabel">Twitter Blue Label</label>
-          <input type="text" id="textTwitterBlueLabel" />
+        <div class="inputs-split">
+          <div class="option text-option">
+            <label for="textVerifiedLabel">Verified Label</label>
+            <input type="text" id="textVerifiedLabel" />
+          </div>
+          <div class="option text-option">
+            <label for="textTwitterBlueLabel">Twitter Blue Label</label>
+            <input type="text" id="textTwitterBlueLabel" />
+          </div>
         </div>
         <div class="space option checkboxes">
-          <label for="memeMode">Comic Sans Icon + Font for Twitter Blue</label>
           <input type="checkbox" id="memeMode" />
+          <label for="memeMode"><strong>Meme Mode</strong><br />Comic Sans Icon + Font for Twitter Blue</label>
         </div>
         <div class="option checkboxes">
-          <label for="textEnabled">Enable Text</label>
           <input type="checkbox" id="textEnabled" />
+          <label for="textEnabled"><strong>Enable Text</strong><br />Shows text labels next to the verified badge on
+            twitter profiles</label>
         </div>
         <div class="option checkboxes">
-          <label for="textEnableBorder">Enable Border</label>
           <input type="checkbox" id="textEnableBorder" />
+          <label for="textEnableBorder"><strong>Enable Border</strong><br />Shows a border on verified badges with
+            text</label>
         </div>
         <div class="option checkboxes">
-          <label for="removeBlueVerification">Remove Twitter Blue Verification</label>
           <input type="checkbox" id="removeBlueVerification" />
+          <label for="removeBlueVerification"><strong>Remove Twitter Blue</strong><br /> Hides Paid Twitter Blue badges
+            from
+            accounts </label>
         </div>
-        <button id="save">Save</button>
+        <div class='savecontainer'>
+          <button id="save">Save</button>
+        </div>
       </div>
     </div>
   </div>

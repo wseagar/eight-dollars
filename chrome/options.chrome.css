@@ -6,7 +6,48 @@ body {
 
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #2f3336;
   background-color: black;
+  ;
+
+}
+
+.savecontainer {
+  box-sizing: border-box;
+  padding: 1rem 1rem 1rem 1rem;
+  border-top: 1px solid #2f3336;
+}
+
+.header {
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: 1fr 80px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #2f3336;
+  padding: 1rem;
+}
+
+.header button {
+  margin: 0;
+  border: 1px solid #fff;
+  background: none;
+}
+
+.header button:hover {
+  margin: 0;
+  background: #fff;
+  color: black;
+}
+
+.header h1 {
+  color: #fff;
+  text-align: left;
+  margin: 0;
+
 }
 
 p {
@@ -23,17 +64,16 @@ p {
   justify-content: center;
   place-items: center;
   overflow: hidden;
-  padding: 1rem;
   position: relative;
   border-radius: 20px;
   box-sizing: border-box;
   background: #000;
-  width: 480px;
+  width: 40rem;
 }
 
 .brand-logo {
-  height: 40px;
-  width: 40px;
+  height: 32px;
+  width: 32px;
   background: url("icon.png");
   background-repeat: no-repeat;
   background-size: contain;
@@ -51,13 +91,12 @@ p {
 label,
 input,
 button {
-  display: block;
   width: 100%;
   padding: 0;
   border: none;
   outline: none;
   box-sizing: border-box;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 label {
@@ -84,11 +123,15 @@ input {
 
 input[type="checkbox"] {
   box-shadow: none;
-  height: 30px;
+  height: 24px;
 }
 
 input[type="text"]:focus {
   border-color: #1da1f2;
+}
+
+.text-option {
+  flex: 1;
 }
 
 .text-option label {
@@ -97,46 +140,58 @@ input[type="text"]:focus {
 
 .inputs {
   text-align: left;
+  width: 100%;
 }
 
-.option {
-  margin-top: 13px;
+.option {}
+
+.options {
+  width: 100%;
 }
 
 .space {
-  padding-top: 2rem;
+  padding-top: 0.5rem;
 }
 
 .option.checkboxes {
   display: flex !important;
+  align-content: center;
+  border-top: 1px solid #2f3336;
+  padding: 0.75rem 1rem;
+  gap: 0.5rem;
 }
 
 .option.checkboxes label {
-  width: 80% !important;
+  margin: 0;
+  padding: 0;
+  margin-top: 0.05rem;
 }
 
 .option.checkboxes input {
-  width: 20% !important;
+  width: 2rem !important;
 }
 
 button {
   color: white;
-  margin-top: 20px;
   background: #1da1f2;
   height: 40px;
   border-radius: 20px;
   cursor: pointer;
   font-weight: 900;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 
 button:hover {
   box-shadow: none;
 }
 
-h1 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #fff;
+
+
+.inputs-split {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
 }
