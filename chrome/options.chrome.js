@@ -20,8 +20,8 @@ function saveOptions() {
       memeMode,
       textEnabled,
       textOptions: {
-        textVerifiedLabel: textEnabled ? textVerifiedLabel : "",
-        twitterBlueVerifiedLabel: textEnabled ? twitterBlueVerifiedLabel : "",
+        verifiedLabel: textEnabled ? textVerifiedLabel : "",
+        twitterBlueLabel: textEnabled ? twitterBlueVerifiedLabel : "",
         enableBorder: textEnabled ? textEnableBorder : true
       },
     },
