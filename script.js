@@ -74,14 +74,15 @@ const profileNode =
 const search = `form > * > * > * > * > * > * > * > * > * > * > * > * > ${tweets}`;
 const chat = `#layers > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > * > ${tweets}`;
 const youMightLike = `div > aside > div:nth-child(2) > * > * >* > * > * > * > * > a > div > ${tweets}`;
+const spaces = `div.css-1dbjc4n.r-1awozwy.r-ar5de.r-1777fci.r-117bsoe.r-4ukpa0.r-1pn2ns4 ${headerNode}`;
 
 async function main() {
   const observer = new MutationObserver(function (mutations, observer) {
     for (const mutation of mutations) {
       // run query selector on each added node
-      const selectors = [search, chat, youMightLike, headerNode, tweets, profileNode];
+      const selectors = [search, chat, youMightLike, spaces, headerNode, tweets, profileNode];
       for (const selector of selectors) {
-        const isSmall = selectors.indexOf(selector) < 3;
+        const isSmall = selectors.indexOf(selector) < 4;
         for (const node of mutation.addedNodes) {
           if (node.nodeType === 1) {
             const elms = node.querySelectorAll(selector);
