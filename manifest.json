@@ -31,5 +31,12 @@
                 "https://mobile.twitter.com/*"
             ]
         }
+    ],
+    "options_ui": {
+        "page": "chrome/options.chrome.html",
+        "open_in_tab": false
+    },
+    "permissions": [
+        "storage"
     ]
 }
