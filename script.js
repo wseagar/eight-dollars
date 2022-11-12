@@ -147,6 +147,12 @@ function evaluateBlueCheck() {
   for (const blueCheckComponent of trackingBlueChecks.values()) {
     try {
       const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent)
+
+      if (!nestedProps) {
+        // some components don't have nested props,
+        // so we can't do anything with them
+        continue
+      }
   
       if (nestedProps.isBlueVerified) {
         changeBlueVerified(blueCheckComponent, isSmall);
