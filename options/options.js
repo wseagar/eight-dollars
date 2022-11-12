@@ -24,9 +24,9 @@ function saveOptions() {
       textEnabled,
       removeBlueVerification,
       textOptions: {
-        verifiedLabel: textVerifiedLabel,
-        twitterBlueLabel: twitterBlueVerifiedLabel,
-        enableBorder: textEnableBorder,
+        verifiedLabel: textEnabled ? textVerifiedLabel : "",
+        twitterBlueLabel: textEnabled ? twitterBlueVerifiedLabel : "",
+        enableBorder: textEnabled ? textEnableBorder : true,
       },
     },
     function () {
@@ -34,7 +34,7 @@ function saveOptions() {
       status.style.display = "block";
       setTimeout(function () {
         status.style.display = "none";
-      }, 750);
+      }, 1500);
     }
   );
 }
