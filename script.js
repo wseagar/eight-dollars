@@ -132,61 +132,77 @@ function getReactProps(parent, target) {
   return state;
 }
 
+function performBluecheckFindAndReplace(node) {
+  const isSmall = false
+  const blueChecks = querySelectorAllIncludingMe(node, BLUE_CHECK_PATTERN_NEW)
+  for (const blueCheckComponent of blueChecks) {
+    try {
+      const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent)
+
+      const isBlueVerified =
+        nestedProps.isBlueVerified;
+      const isVerified =
+        nestedProps.isVerified;
+
+      if (isBlueVerified) {
+        changeBlueVerified(blueCheckComponent.querySelector('path'), isSmall);
+      } else if (isVerified) {
+        changeVerified(blueCheckComponent.querySelector('path'), isSmall);
+      }
+    }
+    catch (e) {
+      console.error("Error getting 'Verified account' react props: ", e)
+    }
+  }
+
+  const blueChecksProvidesDetails = querySelectorAllIncludingMe(node, BLUE_CHECK_PATTERN_PROVIDE_DETAILS)
+  for (const blueCheckEl of blueChecksProvidesDetails) {
+    const blueCheckComponent = blueCheckEl.parentElement.parentElement.parentElement
+    try {
+      const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement, blueCheckComponent).children[1].props.children.props
+
+      const isBlueVerified =
+        nestedProps.isBlueVerified;
+      const isVerified =
+        nestedProps.isVerified;
+
+      console.log({isBlueVerified, isVerified})
+
+      if (isBlueVerified) {
+        changeBlueVerified(blueCheckEl.querySelector('path'), isSmall);
+      } else if (isVerified) {
+        changeVerified(blueCheckEl.querySelector('path'), isSmall);
+      }
+    } catch (e) {
+      console.error("Error getting 'Provides details' react props: ", e)
+    }
+  }
+}
+
 async function main() {
   const observer = new MutationObserver(function (mutations, observer) {
-    for (const mutation of mutations) {
-      const isSmall = true
-      for (const node of mutation.addedNodes) {
-        if (node.nodeType === 1) {
-          const blueChecks = querySelectorAllIncludingMe(node, BLUE_CHECK_PATTERN_NEW)
-          for (const blueCheckComponent of blueChecks) {
-            try {
-              const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent)
-
-              const isBlueVerified =
-                nestedProps.isBlueVerified;
-              const isVerified =
-                nestedProps.isVerified;
-
-              if (isBlueVerified) {
-                changeBlueVerified(blueCheckComponent.querySelector('path'), isSmall);
-              } else if (isVerified) {
-                changeVerified(blueCheckComponent.querySelector('path'), isSmall);
-              }
-            }
-            catch (e) {
-              console.error("Error getting 'Verified account' react props: ", e)
-            }
-          }
-
-          const blueChecksProvidesDetails = querySelectorAllIncludingMe(node, BLUE_CHECK_PATTERN_PROVIDE_DETAILS)
-          for (const blueCheckEl of blueChecksProvidesDetails) {
-            const blueCheckComponent = blueCheckEl.parentElement.parentElement
-            try {
-              const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent).children.props
-
-              const isBlueVerified =
-                nestedProps.isBlueVerified;
-              const isVerified =
-                nestedProps.isVerified;
-
-              if (isBlueVerified) {
-                changeBlueVerified(blueCheckEl.querySelector('path'), isSmall);
-              } else if (isVerified) {
-                changeVerified(blueCheckEl.querySelector('path'), isSmall);
-              }
-            } catch (e) {
-              console.error("Error getting 'Provides details' react props: ", e)
-            }
+    try {
+      for (const mutation of mutations) {
+        console.log('mutation', mutation)
+        if (mutation.type === 'attributes') {
+          performBluecheckFindAndReplace(mutation.target)
+        }
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType === 1) {
+            performBluecheckFindAndReplace()
           }
         }
       }
+    }
+    catch (error) {
+      console.log('uncaught mutation error', error)
     }
   });
 
   observer.observe(document, {
     childList: true,
     subtree: true,
+    attributes: true
   });
 }
 
