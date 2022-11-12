@@ -6,7 +6,16 @@ Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://t
 
 ![Some tweets](./assets/example.png)
 
-## How to install (Chrome)
+
+## Installation Instructions
+
+- [Chrome](#How-to-install-on-Chrome)
+- [Firefox](#How-to-install-on-Firefox)
+- Edge (Working, instructions coming soon)
+- Safari (Coming Soon)
+
+
+### How to install on Chrome
 
 > (Currenting pending approval to Chrome Web Store, installing as a developer extension is a temporary measure until its approved)
 
@@ -30,6 +39,6 @@ Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://t
 
 ![chrome extension page](./assets/intro-4.png)
 
-## How to install (Firefox)
+### How to install on Firefox
 
 Visit the [Firefox Extensions page](https://addons.mozilla.org/en-US/firefox/addon/eightdollars/) 
