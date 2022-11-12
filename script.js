@@ -123,11 +123,21 @@ function getReactProps(parent, target) {
   return state;
 }
 
+function checkIfSmall(node) {
+  let parent = node.parentElement;
+  while (parent) {
+    if (parent.getAttribute('aria-label') === 'Who to follow') {
+      return true
+    }
+    parent = parent.parentElement;
+  }
+  return false
+}
+
 const trackingBlueChecks = new Set()
 const trackingBlueChecksProvidesDetails = new Set()
 
 function evaluateBlueCheck() {
-  const isSmall = false
   for (const blueCheckComponent of trackingBlueChecks.values()) {
     try {
       const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent)
@@ -137,6 +147,8 @@ function evaluateBlueCheck() {
         // so we can't do anything with them
         continue
       }
+
+      const isSmall = checkIfSmall(blueCheckComponent)
   
       if (nestedProps.isBlueVerified) {
         changeBlueVerified(blueCheckComponent, isSmall);
@@ -150,7 +162,7 @@ function evaluateBlueCheck() {
   }
 }
 function evaluateBlueCheckProvidesDetails() {
-  const isSmall = false
+  const isSmall = false // none of the Provides Details blue checks are small
   for (const blueCheckEl of trackingBlueChecksProvidesDetails.values()) {
     const blueCheckComponent = blueCheckEl.parentElement
     try {
