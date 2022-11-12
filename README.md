@@ -11,7 +11,7 @@ Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://t
 
 - [Chrome](#How-to-install-on-Chrome)
 - [Firefox](#How-to-install-on-Firefox)
-- Edge (Working, instructions coming soon)
+- [Edge](#How-to-install-on-edge)
 - Safari (Coming Soon)
 
 
