@@ -25,7 +25,7 @@ Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://t
 
 ![chrome extension page](./assets/intro-1.png)
 
-3. [Download the extension here](https://github.com/wseagar/eight-dollars/releases/download/v1.1/eight-dollars-v1.1-chrome.zip)
+3. [Download the extension here](https://github.com/wseagar/eight-dollars/releases/download/v1.2/eight-dollars-v1.2-chrome.zip)
 
 4. Unzip the folder
 
