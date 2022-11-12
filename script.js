@@ -159,10 +159,10 @@ function evaluateBlueCheck() {
 
       const isSmall = checkIfSmall(blueCheckComponent)
   
-      if (nestedProps.isBlueVerified) {
-        changeBlueVerified(blueCheckComponent, isSmall);
-      } else if (nestedProps.isVerified) {
+      if (nestedProps.isVerified) {
         changeVerified(blueCheckComponent, isSmall);
+      } else if (nestedProps.isBlueVerified) {
+        changeBlueVerified(blueCheckComponent, isSmall);
       }
     }
     catch (e) {
@@ -183,10 +183,10 @@ function evaluateBlueCheckProvidesDetails() {
         throw new Error("Change target not found for a 'Provides details' node")
       }
 
-      if (nestedProps.isBlueVerified) {
-        changeBlueVerified(changeTarget, isSmall);
-      } else if (nestedProps.isVerified) {
+      if (nestedProps.isVerified) {
         changeVerified(changeTarget, isSmall);
+      } else if (nestedProps.isBlueVerified) {
+        changeBlueVerified(changeTarget, isSmall);
       }
     } catch (e) {
       console.error("Error getting 'Provides details' react props: ", e)
