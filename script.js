@@ -231,7 +231,19 @@ async function main() {
           }
         }
       }
-      // TODO: do a garbage collect of trackingBlueChecks and trackingBlueChecksProvidesDetails here
+
+      // garbage collect trackingBlueChecks and trackingBlueChecksProvidesDetails
+      for (const blueCheckComponent of trackingBlueChecks) {
+        if (!blueCheckComponent.isConnected) {
+          trackingBlueChecks.delete(blueCheckComponent)
+        }
+      }
+      for (const blueCheckEl of trackingBlueChecksProvidesDetails) {
+        if (!blueCheckEl.isConnected) {
+          trackingBlueChecksProvidesDetails.delete(blueCheckEl)
+        }
+      }
+    
       evaluateBlueCheck()
       evaluateBlueCheckProvidesDetails()
     }
