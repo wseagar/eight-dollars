@@ -22,10 +22,17 @@ const REGULAR_BLUE_DOLLAR_SVG = (isAriaLabel) => `<svg ${isAriaLabel ? 'aria-lab
 
 const REGULAR_BLUE_CHECK_SVG = `<svg viewBox="0 0 24 24" aria-label="Verified account" role="img" data-eight-dollars-status="verified" class="r-13v1u17 r-4qtqp9 r-yyyyoo r-1xvli5t r-f9ja8p r-og9te1 r-bnwqim r-1plcrui r-lrvibr"><g><path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.76z" style="fill: "#1D9BF0";"></path></g></svg>`;
 
-function changeVerified(elm, isSmall) {
+function changeVerified(elm, isSmall, isIndeterminate) {
   if (elm.dataset.eightDollarsStatus === 'verified') {
     // already replaced this element
     return
+  }
+
+  // hide if believe there's bad data
+  if (isIndeterminate) {
+    elm.style.display = 'none';
+    elm.setAttribute('data-eight-dollars-status', 'verified');
+    return;
   }
   
   const small = REGULAR_BLUE_CHECK_SVG;
@@ -142,6 +149,19 @@ function checkIfSmall(node) {
   }
   return false
 }
+function checkIfKnownBadData(node) {
+  let parent = node.parentElement;
+  while (parent) {
+    // Twitter Spaces is known to give bad data
+    // in particular, when user purchased the $8 checkmark
+    // not only isBlueVerified is true, but isVerified is true as well
+    if (parent.dataset.testid === 'SpaceDockExpanded') {
+      return true
+    }
+    parent = parent.parentElement;
+  }
+  return false
+}
 
 const trackingBlueChecks = new Set()
 const trackingBlueChecksProvidesDetails = new Set()
@@ -158,11 +178,14 @@ function evaluateBlueCheck() {
       }
 
       const isSmall = checkIfSmall(blueCheckComponent)
+      const isKnownBadData = checkIfKnownBadData(blueCheckComponent)
   
-      if (nestedProps.isVerified) {
-        changeVerified(blueCheckComponent, isSmall);
+      if (isKnownBadData && nestedProps.isVerified && nestedProps.isBlueVerified) {
+        changeVerified(blueCheckComponent, isSmall, true);
+      } else if (nestedProps.isVerified) {
+        changeVerified(blueCheckComponent, isSmall, false);
       } else if (nestedProps.isBlueVerified) {
-        changeBlueVerified(blueCheckComponent, isSmall);
+        changeBlueVerified(blueCheckComponent, isSmall, false);
       }
     }
     catch (e) {
@@ -184,9 +207,9 @@ function evaluateBlueCheckProvidesDetails() {
       }
 
       if (nestedProps.isVerified) {
-        changeVerified(changeTarget, isSmall);
+        changeVerified(changeTarget, isSmall, false);
       } else if (nestedProps.isBlueVerified) {
-        changeBlueVerified(changeTarget, isSmall);
+        changeBlueVerified(changeTarget, isSmall, false);
       }
     } catch (e) {
       console.error("Error getting 'Provides details' react props: ", e)
