@@ -186,7 +186,6 @@ function evaluateBlueCheckProvidesDetails() {
       continue
     }
     try {
-      // TODO: it might be ok to walk up one more parent element to make props access simpler
       const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement.parentElement, blueCheckComponent)
 
       const isBlueVerified =
