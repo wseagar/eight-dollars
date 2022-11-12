@@ -47,7 +47,7 @@ function changeVerified(elm, isSmall) {
 
 function changeBlueVerified(elm, isSmall) {
   if (REMOVE_TWITTER_BLUE_VERIFICATION) {
-    elm.parentElement.innerHTML = '';
+    elm.parentElement.parentElement.parentElement.innerHTML = '';
     return;
   }
 
