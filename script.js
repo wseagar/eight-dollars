@@ -6,7 +6,7 @@ const TEXT_ENABLED = data.textEnabled;
 const REMOVE_TWITTER_BLUE_VERIFICATION = data.removeBlueVerification;
 const TEXT_VERIFIED_LABEL = data.textOptions?.verifiedLabel || "";
 const TEXT_TWITTER_BLUE_LABEL = data.textOptions?.twitterBlueLabel || "";
-const TEXT_ENABLE_BORDER = data.textOptions?.enableBorder || true;
+const TEXT_ENABLE_BORDER = data.textOptions?.enableBorder ?? true;
 
 
 const BLUE_CHECK_PATTERN =
