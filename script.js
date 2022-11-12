@@ -65,8 +65,8 @@ function changeBlueVerified(elm, isSmall) {
   }
 
   if (REMOVE_TWITTER_BLUE_VERIFICATION) {
-    // TODO: set display: none on the parent element
-    elm.parentElement.innerHTML = '';
+    elm.style.display = 'none';
+    elm.setAttribute('data-eight-dollars-status', 'blueVerified');
     return;
   }
 
