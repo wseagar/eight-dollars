@@ -132,6 +132,12 @@ function checkIfSmall(node) {
     if (parent.dataset.testid === 'SpaceDockExpanded') {
       return true
     }
+    if (parent.dataset.testid === 'typeaheadRecentSearchesItem') {
+      return true
+    }
+    if (parent.dataset.testid === 'DMDrawer') {
+      return true
+    }
     parent = parent.parentElement;
   }
   return false
