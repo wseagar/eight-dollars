@@ -82,39 +82,101 @@ const chat = `#layers > * > * > * > * > * > * > * > * > * > * > * > * > * > * > 
 const youMightLike = `div > aside > div:nth-child(2) > * > * >* > * > * > * > * > a > div > ${tweets}`;
 const spaces = `div.css-1dbjc4n.r-1awozwy.r-ar5de.r-1777fci.r-117bsoe.r-4ukpa0.r-1pn2ns4 ${headerNode}`;
 
+
+const BLUE_CHECK_PATTERN_NEW = '[aria-label="Verified account"]'
+const BLUE_CHECK_PATTERN_PROVIDE_DETAILS = '[aria-label="Provides details about verified accounts."]'
+
+function querySelectorAllIncludingMe(node, selector) {
+  if (node.matches(selector)) {
+    return [node]
+  }
+  return [...node.querySelectorAll(selector)]
+}
+
+// From https://stackoverflow.com/a/74240138/2230249
+function getReactProps(parent, target) {
+  const keyof_ReactProps = Object.keys(parent).find(k => k.startsWith("__reactProps$"));
+  const symof_ReactFragment = Symbol.for("react.fragment");
+
+  //Find the path from target to parent
+  let path = [];
+  let elem = target;
+  while (elem !== parent) {
+      let index = 0;
+      for (let sibling = elem; sibling != null;) {
+          if (sibling[keyof_ReactProps]) index++;
+          sibling = sibling.previousElementSibling;
+      }
+      path.push({ child: elem, index });
+      elem = elem.parentElement;
+  }
+  //Walk down the path to find the react state props
+  let state = elem[keyof_ReactProps];
+  for (let i = path.length - 1; i >= 0 && state != null; i--) {
+      //Find the target child state index
+      let childStateIndex = 0, childElemIndex = 0;
+      while (childStateIndex < state.children.length) {
+          let childState = state.children[childStateIndex];
+          if (childState instanceof Object) {
+              //Fragment children are inlined in the parent DOM element
+              let isFragment = childState.type === symof_ReactFragment && childState.props.children.length;
+              childElemIndex += isFragment ? childState.props.children.length : 1;
+              if (childElemIndex === path[i].index) break;
+          }
+          childStateIndex++;
+      }
+      let childState = state.children[childStateIndex] ?? (childStateIndex === 0 ? state.children : null);
+      state = childState?.props;
+      elem = path[i].child;
+  }
+  return state;
+}
+
 async function main() {
   const observer = new MutationObserver(function (mutations, observer) {
     for (const mutation of mutations) {
-      // run query selector on each added node
-      const selectors = [search, chat, youMightLike, spaces, headerNode, tweets, profileNode];
-      for (const selector of selectors) {
-        const isSmall = selectors.indexOf(selector) < 4;
-        for (const node of mutation.addedNodes) {
-          if (node.nodeType === 1) {
-            const elms = node.querySelectorAll(selector);
-            for (const elm of elms) {
-              const svg = elm.querySelector(BLUE_CHECK_PATTERN);
-              if (svg) {
-                const names = Object.getOwnPropertyNames(elm);
-                const reactPropsName = names.find((name) =>
-                  name.startsWith("__reactProps")
-                );
-                if (!reactPropsName) {
-                  console.log("Couldn't find react props", node);
-                  continue;
-                }
-                const props = elm[reactPropsName];
-                const isBlueVerified =
-                  props.children.props.children[0][0].props.isBlueVerified;
-                const isVerified =
-                  props.children.props.children[0][0].props.isVerified;
+      const isSmall = true
+      for (const node of mutation.addedNodes) {
+        if (node.nodeType === 1) {
+          const blueChecks = querySelectorAllIncludingMe(node, BLUE_CHECK_PATTERN_NEW)
+          for (const blueCheckComponent of blueChecks) {
+            try {
+              const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent)
 
-                if (isVerified) {
-                  changeVerified(svg, isSmall);
-                } else if (isBlueVerified) {
-                  changeBlueVerified(svg, isSmall);
-                }
+              const isBlueVerified =
+                nestedProps.isBlueVerified;
+              const isVerified =
+                nestedProps.isVerified;
+
+              if (isBlueVerified) {
+                changeBlueVerified(blueCheckComponent.querySelector('path'), isSmall);
+              } else if (isVerified) {
+                changeVerified(blueCheckComponent.querySelector('path'), isSmall);
               }
+            }
+            catch (e) {
+              console.error("Error getting 'Verified account' react props: ", e)
+            }
+          }
+
+          const blueChecksProvidesDetails = querySelectorAllIncludingMe(node, BLUE_CHECK_PATTERN_PROVIDE_DETAILS)
+          for (const blueCheckEl of blueChecksProvidesDetails) {
+            const blueCheckComponent = blueCheckEl.parentElement.parentElement
+            try {
+              const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent).children.props
+
+              const isBlueVerified =
+                nestedProps.isBlueVerified;
+              const isVerified =
+                nestedProps.isVerified;
+
+              if (isBlueVerified) {
+                changeBlueVerified(blueCheckEl.querySelector('path'), isSmall);
+              } else if (isVerified) {
+                changeVerified(blueCheckEl.querySelector('path'), isSmall);
+              }
+            } catch (e) {
+              console.error("Error getting 'Provides details' react props: ", e)
             }
           }
         }
