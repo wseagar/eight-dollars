@@ -35,9 +35,9 @@ function changeVerified(elm, isSmall) {
 </div>`;
   try {
     if (isSmall || !TEXT_ENABLED) {
-      elm.parentElement.innerHTML = small;
+      elm.innerHTML = small;
     } else {
-      elm.parentElement.parentElement.parentElement.innerHTML = big;
+      elm.parentElement.parentElement.innerHTML = big;
     }
   } catch (e) {
     console.log(elm);
@@ -47,7 +47,7 @@ function changeVerified(elm, isSmall) {
 
 function changeBlueVerified(elm, isSmall) {
   if (REMOVE_TWITTER_BLUE_VERIFICATION) {
-    elm.parentElement.parentElement.parentElement.innerHTML = '';
+    elm.parentElement.parentElement.innerHTML = '';
     return;
   }
 
@@ -60,9 +60,9 @@ function changeBlueVerified(elm, isSmall) {
     </div>`
   try {
     if (isSmall || !TEXT_ENABLED) {
-      elm.parentElement.innerHTML = small;
+      elm.innerHTML = small;
     } else {
-      elm.parentElement.parentElement.parentElement.innerHTML = big;
+      elm.parentElement.parentElement.innerHTML = big;
     }
   } catch (e) {
     console.log(elm);
@@ -145,9 +145,9 @@ function performBluecheckFindAndReplace(node) {
         nestedProps.isVerified;
 
       if (isBlueVerified) {
-        changeBlueVerified(blueCheckComponent.querySelector('path'), isSmall);
+        changeBlueVerified(blueCheckComponent.querySelector("g"), isSmall);
       } else if (isVerified) {
-        changeVerified(blueCheckComponent.querySelector('path'), isSmall);
+        changeVerified(blueCheckComponent.querySelector("g"), isSmall);
       }
     }
     catch (e) {
@@ -169,9 +169,9 @@ function performBluecheckFindAndReplace(node) {
       console.log({isBlueVerified, isVerified})
 
       if (isBlueVerified) {
-        changeBlueVerified(blueCheckEl.querySelector('path'), isSmall);
+        changeBlueVerified(blueCheckEl.querySelector("g"), isSmall);
       } else if (isVerified) {
-        changeVerified(blueCheckEl.querySelector('path'), isSmall);
+        changeVerified(blueCheckEl.querySelector("g"), isSmall);
       }
     } catch (e) {
       console.error("Error getting 'Provides details' react props: ", e)
@@ -189,7 +189,7 @@ async function main() {
         }
         for (const node of mutation.addedNodes) {
           if (node.nodeType === 1) {
-            performBluecheckFindAndReplace()
+            performBluecheckFindAndReplace(node)
           }
         }
       }
