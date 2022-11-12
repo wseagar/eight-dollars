@@ -169,9 +169,9 @@ function performBluecheckFindAndReplace(node) {
       console.log({isBlueVerified, isVerified})
 
       if (isBlueVerified) {
-        changeBlueVerified(blueCheckEl, isSmall);
+        changeBlueVerified(blueCheckComponent.querySelector('[aria-label="Verified account"]'), isSmall);
       } else if (isVerified) {
-        changeVerified(blueCheckEl, isSmall);
+        changeVerified(blueCheckComponent.querySelector('[aria-label="Verified account"]'), isSmall);
       }
     } catch (e) {
       console.error("Error getting 'Provides details' react props: ", e)
