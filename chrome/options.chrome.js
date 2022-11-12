@@ -15,14 +15,14 @@ function saveOptions() {
     "textTwitterBlueLabel"
   ).value;
   const textEnableBorder = document.getElementById("textEnableBorder").checked;
-  chrome.storage.sync.set(
+  chrome.storage.local.set(
     {
       memeMode,
       textEnabled,
       textOptions: {
         verifiedLabel: textEnabled ? textVerifiedLabel : "",
         twitterBlueLabel: textEnabled ? twitterBlueVerifiedLabel : "",
-        enableBorder: textEnabled ? textEnableBorder : true
+        enableBorder: textEnabled ? textEnableBorder : true,
       },
     },
     function () {
@@ -36,7 +36,7 @@ function saveOptions() {
 }
 
 function restoreOptions() {
-  chrome.storage.sync.get(
+  chrome.storage.local.get(
     {
       memeMode: false,
       textEnabled: true,
