@@ -158,14 +158,9 @@ function evaluateBlueCheck() {
     try {
       const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent)
   
-      const isBlueVerified =
-        nestedProps.isBlueVerified;
-      const isVerified =
-        nestedProps.isVerified;
-  
-      if (isBlueVerified) {
+      if (nestedProps.isBlueVerified) {
         changeBlueVerified(blueCheckComponent, isSmall);
-      } else if (isVerified) {
+      } else if (nestedProps.isVerified) {
         changeVerified(blueCheckComponent, isSmall);
       }
     }
@@ -181,16 +176,9 @@ function evaluateBlueCheckProvidesDetails() {
     try {
       const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement.parentElement, blueCheckComponent)
 
-      const isBlueVerified =
-        nestedProps.isBlueVerified;
-      const isVerified =
-        nestedProps.isVerified;
-
-      console.log({isBlueVerified, isVerified})
-
-      if (isBlueVerified) {
+      if (nestedProps.isBlueVerified) {
         changeBlueVerified(blueCheckComponent.querySelector('[aria-label="Verified account"]'), isSmall);
-      } else if (isVerified) {
+      } else if (nestedProps.isVerified) {
         changeVerified(blueCheckComponent.querySelector('[aria-label="Verified account"]'), isSmall);
       }
     } catch (e) {
