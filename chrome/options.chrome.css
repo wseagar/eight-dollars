@@ -83,9 +83,15 @@ p {
 }
 
 #status {
-  font-weight: 900;
-  color: #1da1f2;
+  font-weight: 600;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid white;
+  border-radius: 16px;
+  color: #fff;
+  text-align: center;
   letter-spacing: 1px;
+  display: none;
 }
 
 label,
