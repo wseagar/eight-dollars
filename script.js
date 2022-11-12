@@ -155,10 +155,6 @@ const trackingBlueChecksProvidesDetails = new Set()
 function evaluateBlueCheck() {
   const isSmall = false
   for (const blueCheckComponent of trackingBlueChecks.values()) {
-    if (!blueCheckComponent) {
-      continue // TODO: this should be unnecessary with a garbage collect
-    }
-
     try {
       const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent)
   
@@ -182,9 +178,6 @@ function evaluateBlueCheckProvidesDetails() {
   const isSmall = false
   for (const blueCheckEl of trackingBlueChecksProvidesDetails.values()) {
     const blueCheckComponent = blueCheckEl.parentElement
-    if (!blueCheckComponent) {
-      continue // TODO: this should be unnecessary with a garbage collect
-    }
     try {
       const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement.parentElement, blueCheckComponent)
 
