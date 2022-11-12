@@ -15,10 +15,14 @@ function saveOptions() {
     "textTwitterBlueLabel"
   ).value;
   const textEnableBorder = document.getElementById("textEnableBorder").checked;
+  const removeBlueVerification = document.getElementById(
+    "removeBlueVerification"
+  ).checked;
   chrome.storage.local.set(
     {
       memeMode,
       textEnabled,
+      removeBlueVerification,
       textOptions: {
         verifiedLabel: textEnabled ? textVerifiedLabel : "",
         twitterBlueLabel: textEnabled ? twitterBlueVerifiedLabel : "",
@@ -34,12 +38,15 @@ function saveOptions() {
     }
   );
 }
-
+function closeOptions() {
+  window.close();
+}
 function restoreOptions() {
   chrome.storage.local.get(
     {
       memeMode: false,
       textEnabled: true,
+      removeBlueVerification: false,
       textOptions: {
         verifiedLabel: "Verified",
         twitterBlueLabel: "Paid",
@@ -55,6 +62,8 @@ function restoreOptions() {
         items.textOptions.twitterBlueLabel;
       document.getElementById("textEnableBorder").checked =
         items.textOptions.enableBorder;
+      document.getElementById("removeBlueVerification").checked =
+        items.removeBlueVerification;
       onTextEnabledChange();
     }
   );
@@ -66,4 +75,5 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("textEnabled")
     .addEventListener("change", onTextEnabledChange);
   document.getElementById("save").addEventListener("click", saveOptions);
+  document.getElementById("close").addEventListener("click", closeOptions);
 });

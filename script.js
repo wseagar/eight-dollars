@@ -3,6 +3,7 @@ const data = JSON.parse(config.innerText);
 
 const MEME_MODE = data.memeMode;
 const TEXT_ENABLED = data.textEnabled;
+const REMOVE_TWITTER_BLUE_VERIFICATION = data.removeBlueVerification;
 const TEXT_VERIFIED_LABEL = data.textOptions?.verifiedLabel || "";
 const TEXT_TWITTER_BLUE_LABEL = data.textOptions?.twitterBlueLabel || "";
 const TEXT_ENABLE_BORDER = data.textOptions?.enableBorder || true;
@@ -45,6 +46,11 @@ function changeVerified(elm, isSmall) {
 }
 
 function changeBlueVerified(elm, isSmall) {
+  if (REMOVE_TWITTER_BLUE_VERIFICATION) {
+    elm.parentElement.innerHTML = '';
+    return;
+  }
+
   const svg = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG}` : `${REGULAR_BLUE_DOLLAR_SVG}`;
   const small = `${svg}`;
   const big = `

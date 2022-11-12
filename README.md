@@ -32,4 +32,4 @@ Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://t
 
 ## How to install (Firefox)
 
-See https://twitter.com/willseagar/status/1590850922099666944
+Visit the [Firefox Extensions page](https://addons.mozilla.org/en-US/firefox/addon/eightdollars/) 

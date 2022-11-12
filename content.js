@@ -1,6 +1,7 @@
 const defaultConfig = {
   memeMode: false,
   textEnabled: true,
+  removeBlueVerification: false,
   textOptions: {
     verifiedLabel: "Verified",
     twitterBlueLabel: "Paid",
