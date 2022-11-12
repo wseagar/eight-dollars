@@ -181,13 +181,13 @@ function evaluateBlueCheck() {
 function evaluateBlueCheckProvidesDetails() {
   const isSmall = false
   for (const blueCheckEl of trackingBlueChecksProvidesDetails.values()) {
-    const blueCheckComponent = blueCheckEl.parentElement.parentElement
+    const blueCheckComponent = blueCheckEl.parentElement
     if (!blueCheckComponent) {
       continue
     }
     try {
       // TODO: it might be ok to walk up one more parent element to make props access simpler
-      const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent).children.props
+      const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement.parentElement, blueCheckComponent)
 
       const isBlueVerified =
         nestedProps.isBlueVerified;
