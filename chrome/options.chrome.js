@@ -24,9 +24,9 @@ function saveOptions() {
       textEnabled,
       removeBlueVerification,
       textOptions: {
-        verifiedLabel: textEnabled ? textVerifiedLabel : "",
-        twitterBlueLabel: textEnabled ? twitterBlueVerifiedLabel : "",
-        enableBorder: textEnabled ? textEnableBorder : true,
+        verifiedLabel: textVerifiedLabel,
+        twitterBlueLabel: twitterBlueVerifiedLabel,
+        enableBorder: textEnableBorder,
       },
     },
     function () {
