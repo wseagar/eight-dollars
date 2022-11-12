@@ -38,7 +38,7 @@
             "32": "./assets/32.png"
         },
         "default_title": "Eight Dollars - Options",
-        "default_popup": "chrome/options.chrome.html"
+        "default_popup": "options/options.html"
     },
     "permissions": [
         "storage"

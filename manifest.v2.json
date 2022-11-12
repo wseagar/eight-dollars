@@ -30,6 +30,6 @@
     "browser_action": {
         "default_icon": "./assets/32.png",
         "default_title": "Eight-Dollars",
-        "default_popup": "chrome/options.chrome.html"
+        "default_popup": "options/options.html"
     }
 }
