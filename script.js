@@ -129,6 +129,9 @@ function checkIfSmall(node) {
     if (parent.getAttribute('aria-label') === 'Who to follow') {
       return true
     }
+    if (parent.dataset.testid === 'SpaceDockExpanded') {
+      return true
+    }
     parent = parent.parentElement;
   }
   return false
