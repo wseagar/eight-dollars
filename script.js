@@ -27,7 +27,7 @@ const REGULAR_BLUE_CHECK_SVG = `<svg viewBox="0 0 24 24" aria-label="Verified ac
 
 function changeVerified(elm, isSmall) {
   if (!elm) {
-    // element no longer exists. todo: check up the stack?
+    // element no longer exists. TODO: check up the stack?
     return
   }
 
@@ -50,13 +50,12 @@ function changeVerified(elm, isSmall) {
     }
   } catch (e) {
     console.error('error changing verified', e);
-    // throw e;
   }
 }
 
 function changeBlueVerified(elm, isSmall) {
   if (!elm) {
-    // element no longer exists. todo: check up the stack?
+    // element no longer exists. TODO: check up the stack?
     return
   }
 
@@ -85,7 +84,6 @@ function changeBlueVerified(elm, isSmall) {
     }
   } catch (e) {
     console.error('error changing blue verified', e);
-    // throw e;
   }
 }
 
@@ -117,7 +115,7 @@ function getReactProps(parent, target) {
   const keyof_ReactProps = Object.keys(parent).find(k => k.startsWith("__reactProps$"));
   const symof_ReactFragment = Symbol.for("react.fragment");
 
-  //Find the path from target to parent
+  // Find the path from target to parent
   let path = [];
   let elem = target;
   while (elem !== parent) {
@@ -129,15 +127,15 @@ function getReactProps(parent, target) {
       path.push({ child: elem, index });
       elem = elem.parentElement;
   }
-  //Walk down the path to find the react state props
+  // Walk down the path to find the react state props
   let state = elem[keyof_ReactProps];
   for (let i = path.length - 1; i >= 0 && state != null; i--) {
-      //Find the target child state index
+      // Find the target child state index
       let childStateIndex = 0, childElemIndex = 0;
       while (childStateIndex < state.children.length) {
           let childState = state.children[childStateIndex];
           if (childState instanceof Object) {
-              //Fragment children are inlined in the parent DOM element
+              // Fragment children are inlined in the parent DOM element
               let isFragment = childState.type === symof_ReactFragment && childState.props.children.length;
               childElemIndex += isFragment ? childState.props.children.length : 1;
               if (childElemIndex === path[i].index) break;
@@ -156,13 +154,11 @@ const trackingBlueChecksProvidesDetails = new Set()
 
 function evaluateBlueCheck() {
   const isSmall = false
-  // console.log('trackingBlueChecks', trackingBlueChecks)
   for (const blueCheckComponent of trackingBlueChecks.values()) {
     if (!blueCheckComponent) {
       continue
     }
 
-    // console.log('blueCheckComponent', blueCheckComponent)
     try {
       const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent)
   
@@ -190,6 +186,7 @@ function evaluateBlueCheckProvidesDetails() {
       continue
     }
     try {
+      // TODO: it might be ok to walk up one more parent element to make props access simpler
       const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement, blueCheckComponent).children[1].props.children.props
 
       const isBlueVerified =
@@ -210,7 +207,7 @@ function evaluateBlueCheckProvidesDetails() {
   }
 }
 
-function performBluecheckFindAndReplace(node) {
+function performBlueCheckFindAndReplace(node) {
   const blueChecks = querySelectorAllIncludingMe(node, BLUE_CHECK_PATTERN_NEW)
   for (const blueCheckComponent of blueChecks) {
     trackingBlueChecks.add(blueCheckComponent)
@@ -226,16 +223,16 @@ async function main() {
   const observer = new MutationObserver(function (mutations, observer) {
     try {
       for (const mutation of mutations) {
-        // console.log('mutation', mutation)
         if (mutation.type === 'attributes') {
-          performBluecheckFindAndReplace(mutation.target)
+          performBlueCheckFindAndReplace(mutation.target)
         }
         for (const node of mutation.addedNodes) {
           if (node.nodeType === 1) {
-            performBluecheckFindAndReplace(node)
+            performBlueCheckFindAndReplace(node)
           }
         }
       }
+      // TODO: do a garbage collect of trackingBlueChecks and trackingBlueChecksProvidesDetails here
       evaluateBlueCheck()
       evaluateBlueCheckProvidesDetails()
     }
