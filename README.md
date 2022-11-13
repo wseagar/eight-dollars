@@ -9,41 +9,20 @@ Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://t
 
 ## Installation Instructions
 
-- [Chrome](#How-to-install-on-Chrome)
-- [Firefox](#How-to-install-on-Firefox)
-- Edge (Working, instructions coming soon)
-- Safari (Coming Soon)
-
-
 ### How to install on Chrome
-
-#### Through the Chrome Web Store
 
 [Download it on the Chrome Web Store](https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki)
 
-
-#### Or through manual installation
-
-1. Open Google Chrome and visit `chrome://extensions`
-
-2. Enable Developer Mode by clicking on the `Developer mode` toggle
-
-![chrome extension page](./assets/intro-1.png)
-
-3. [Download the extension here](https://github.com/wseagar/eight-dollars/releases/download/v1.2/eight-dollars-v1.2-chrome.zip)
-
-4. Unzip the folder
-
-5. Click on the `Load Unpacked` button and select the folder you just downloaded
-
-![chrome extension page](./assets/intro-2.png)
-
-![file upload modal](./assets/intro-3.png)
-
-6. Check that the extension is enabled, and you're good to go! (You can also disable Developer Mode mode)
-
-![chrome extension page](./assets/intro-4.png)
-
 ### How to install on Firefox
 
-Visit the [Firefox Extensions page](https://addons.mozilla.org/en-US/firefox/addon/eightdollars/) 
+[Download it on the Firefox Browser Extensions page](https://addons.mozilla.org/en-US/firefox/addon/eightdollars/) 
+
+### How to install on Edge
+
+1. [Vist the Chrome Web Store page](https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki)
+2. Click the banner at the top of the page that says "Enable extensions from other stores"
+3. Click "Add to chrome"
+
+### How to install on Safari
+
+Coming soon
