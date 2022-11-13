@@ -17,7 +17,12 @@ Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://t
 
 ### How to install on Chrome
 
-> (Currenting pending approval to Chrome Web Store, installing as a developer extension is a temporary measure until its approved)
+#### Through the Chrome Web Store
+
+[Download it on the Chrome Web Store](https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki)
+
+
+#### Or through manual installation
 
 1. Open Google Chrome and visit `chrome://extensions`
 
