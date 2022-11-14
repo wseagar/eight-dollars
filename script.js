@@ -142,7 +142,7 @@ function changeVerified(elm, isSmall, isIndeterminate) {
   const small = REGULAR_BLUE_CHECK_SVG(true, elm.className.baseVal);
   const smallInnerElement = REGULAR_BLUE_CHECK_SVG(false, elm.className.baseVal);
   const big =  `
-    <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: 0.2rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="verified">
+    <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: ${TEXT_VERIFIED_LABEL ? 0.2 : 0}rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="verified">
       ${smallInnerElement}
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_VERIFIED_LABEL}</p>
     </div>`;
@@ -172,7 +172,7 @@ function changeBlueVerified(elm, isSmall) {
   const small = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(true, elm.className.baseVal)}` : `${REGULAR_BLUE_DOLLAR_SVG(true, elm.className.baseVal)}`
   const smallInnerElement = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(false, elm.className.baseVal)}` : `${REGULAR_BLUE_DOLLAR_SVG(false, elm.className.baseVal)}`
   const big = `
-    <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: 0.2rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="blueVerified">
+    <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: ${TEXT_TWITTER_BLUE_LABEL ? 0.2 : 0}rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="blueVerified">
       ${smallInnerElement}
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_TWITTER_BLUE_LABEL}</p>
     </div>`
