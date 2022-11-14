@@ -11,7 +11,7 @@ assignees: noway, wseagar
 
 Before reporting a bug please make sure you are using the latest browser extension from the appropriate extension store.
 
-Extensions automatically update but may require a browser restart. Make that the issue persists after restarting your browser.
+Extensions automatically update but may require a browser restart. Make sure that the issue persists after restarting your browser.
 
 **Info (please complete the following information):**
  - Browser  [e.g. chrome, firefox]
