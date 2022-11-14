@@ -20,7 +20,7 @@ const REGULAR_BLUE_DOLLAR_SVG = (isAriaLabel, className) => `<svg class="${class
 <polygon id="Path" fill="#FFFFFF" fill-rule="nonzero" points="12.4306693 5.98530124 12.4306693 18.0146988 11.375459 18.0146988 11.375459 5.98530124"></polygon>
 </svg>`
 
-const REGULAR_BLUE_CHECK_SVG = (className) => `<svg viewBox="0 0 24 24" aria-label="Verified account" role="img" data-eight-dollars-status="verified" class="${className}"><g><path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.76z" style="fill: "#1D9BF0";"></path></g></svg>`;
+const REGULAR_BLUE_CHECK_SVG = (isAriaLabel, className) => `<svg viewBox="0 0 24 24" ${isAriaLabel ? 'aria-label="Verified account"' : ''} role="img" data-eight-dollars-status="verified" class="${className}"><g><path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.76z" style="fill: "#1D9BF0";"></path></g></svg>`;
 
 function changeVerified(elm, isSmall, isIndeterminate) {
   if (elm.dataset.eightDollarsStatus === 'verified') {
@@ -35,10 +35,11 @@ function changeVerified(elm, isSmall, isIndeterminate) {
     return;
   }
   
-  const small = REGULAR_BLUE_CHECK_SVG(elm.className.baseVal);
+  const small = REGULAR_BLUE_CHECK_SVG(true, elm.className.baseVal);
+  const smallInnerElement = REGULAR_BLUE_CHECK_SVG(false, elm.className.baseVal);
   const big =  `
     <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: 0.2rem;' aria-label="Verified account" data-eight-dollars-status="verified">
-      ${small}
+      ${smallInnerElement}
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_VERIFIED_LABEL}</p>
     </div>`;
   try {
@@ -65,9 +66,10 @@ function changeBlueVerified(elm, isSmall) {
   }
 
   const small = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(true, elm.className.baseVal)}` : `${REGULAR_BLUE_DOLLAR_SVG(true, elm.className.baseVal)}`
+  const smallInnerElement = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(false, elm.className.baseVal)}` : `${REGULAR_BLUE_DOLLAR_SVG(false, elm.className.baseVal)}`
   const big = `
     <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: 0.2rem;' aria-label="Verified account" data-eight-dollars-status="blueVerified">
-      ${small}
+      ${smallInnerElement}
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_TWITTER_BLUE_LABEL}</p>
     </div>`
   try {
