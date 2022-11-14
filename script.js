@@ -109,8 +109,9 @@ const PROVIDES_DETAILS_ARIA_LABEL_I18N = {
   zh: '提供已验证账号的详细信息。'
 }
 
-const VERIFIED_ACCOUNT_ARIA_LABEL = 'Verified account'
-const PROVIDES_DETAILS_ARIA_LABEL = 'Provides details about verified accounts.'
+const lang = document.documentElement.lang.toLowerCase()
+const VERIFIED_ACCOUNT_ARIA_LABEL = VERIFIED_ACCOUNT_ARIA_LABEL_I18N[lang] || VERIFIED_ACCOUNT_ARIA_LABEL_I18N.en
+const PROVIDES_DETAILS_ARIA_LABEL = PROVIDES_DETAILS_ARIA_LABEL_I18N[lang] || PROVIDES_DETAILS_ARIA_LABEL_I18N.en
 
 const COMIC_SANS_BLUE_DOLLAR_SVG = (isAriaLabel, className) => `<svg class="${className}" ${isAriaLabel ? `aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}"` : ''} width="24" height="24" viewBox="0 0 24 24" data-eight-dollars-status="blueVerified" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M22.25 12C22.25 10.57 21.37 9.33 20.06 8.66C20.52 7.27 20.26 5.76 19.25 4.75C18.24 3.74 16.73 3.48 15.34 3.94C14.68 2.63 13.43 1.75 12 1.75C10.57 1.75 9.33 2.63 8.67 3.94C7.27 3.48 5.76 3.74 4.75 4.75C3.74 5.76 3.49 7.27 3.95 8.66C2.64 9.33 1.75 10.57 1.75 12C1.75 13.43 2.64 14.67 3.95 15.34C3.49 16.73 3.74 18.24 4.75 19.25C5.76 20.26 7.27 20.51 8.66 20.06C9.33 21.37 10.57 22.25 12 22.25C13.43 22.25 14.68 21.37 15.34 20.06C16.73 20.51 18.24 20.26 19.25 19.25C20.26 18.24 20.52 16.73 20.06 15.34C21.37 14.67 22.25 13.43 22.25 12Z" fill="#1D9BF0"/>
