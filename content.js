@@ -4,7 +4,7 @@ const defaultConfig = {
   removeBlueVerification: false,
   textOptions: {
     verifiedLabel: "Verified",
-    twitterBlueLabel: "Paid",
+    twitterBlueLabel: "Twitter Blue",
     enableBorder: true,
   },
 };
