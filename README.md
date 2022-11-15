@@ -9,7 +9,7 @@ Made by [Will Seagar](https://twitter.com/willseagar) and [Walter Lim](https://t
 
 ## Installation Instructions
 
-### How to install on Chrome
+### How to install on Chrome/Brave
 
 [Download it on the Chrome Web Store](https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki)
 
