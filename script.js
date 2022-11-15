@@ -139,8 +139,8 @@ function changeVerified(elm, isSmall, isIndeterminate) {
     return;
   }
 
-  const small = REGULAR_BLUE_CHECK_SVG(true, elm.className.baseVal);
-  const smallInnerElement = REGULAR_BLUE_CHECK_SVG(false, elm.className.baseVal);
+  const small = REGULAR_BLUE_CHECK_SVG(true, elm.classList.join(" "));
+  const smallInnerElement = REGULAR_BLUE_CHECK_SVG(false, elm.classList.join(" "));
   const big =  `
     <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: ${TEXT_VERIFIED_LABEL ? 0.2 : 0}rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="verified">
       ${smallInnerElement}
@@ -169,8 +169,8 @@ function changeBlueVerified(elm, isSmall) {
     return;
   }
 
-  const small = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(true, elm.className.baseVal)}` : `${REGULAR_BLUE_DOLLAR_SVG(true, elm.className.baseVal)}`
-  const smallInnerElement = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(false, elm.className.baseVal)}` : `${REGULAR_BLUE_DOLLAR_SVG(false, elm.className.baseVal)}`
+  const small = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(true, elm.classList.join(" "))}` : `${REGULAR_BLUE_DOLLAR_SVG(true, elm.classList.join(" "))}`
+  const smallInnerElement = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(false, elm.classList.join(" "))}` : `${REGULAR_BLUE_DOLLAR_SVG(false, elm.classList.join(" "))}`
   const big = `
     <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: ${TEXT_TWITTER_BLUE_LABEL ? 0.2 : 0}rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="blueVerified">
       ${smallInnerElement}
