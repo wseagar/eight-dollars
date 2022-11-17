@@ -305,7 +305,8 @@ function evaluateBlueCheck() {
         // so we can't do anything with them
 
         const propsToLookInto = getReactProps(blueCheckComponent.parentElement.parentElement, blueCheckComponent.parentElement)
-        const nestedProps = propsToLookInto?.children[1]?.props
+        const elementChild = propsToLookInto?.children.find(child => child.$$typeof === Symbol.for('react.element'))
+        const nestedProps = elementChild?.props
 
         if (!nestedProps) {
           continue
