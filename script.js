@@ -133,7 +133,7 @@ function getOriginalClasses(elm) {
   return [...elm.classList].join(" ")
 }
 
-function changeVerified(prependText, elm, isSmall, isIndeterminate) {
+function changeVerified(prependHTML, elm, isSmall, isIndeterminate) {
   if (elm.dataset.eightDollarsStatus === 'verified') {
     // already replaced this element
     return
@@ -154,7 +154,7 @@ function changeVerified(prependText, elm, isSmall, isIndeterminate) {
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_VERIFIED_LABEL}</p>
     </span>`;
   try {
-    if (prependText !== "") {
+    if (prependHTML !== "") {
       // Ideally, we wouldn't mutate the parent element, because those 2 styles won't be managed by us further on.
       // That is, if the `aria-label`-selected element changes, the parent styles won't be properly updated.
       // This approach is tolerable, because it's unlikely that a `aria-label`-selected element changes from a
@@ -163,16 +163,16 @@ function changeVerified(prependText, elm, isSmall, isIndeterminate) {
       elm.parentElement.style.alignItems = "center";  
     }
     if (isSmall || !TEXT_ENABLED) {
-      elm.parentElement.innerHTML = `${prependText}${small}`;
+      elm.parentElement.innerHTML = `${prependHTML}${small}`;
     } else {
-      elm.parentElement.innerHTML = `${prependText}${big}`;
+      elm.parentElement.innerHTML = `${prependHTML}${big}`;
     }
   } catch (e) {
     console.error('error changing verified', e);
   }
 }
 
-function changeBlueVerified(prependText, elm, isSmall) {
+function changeBlueVerified(prependHTML, elm, isSmall) {
   if (elm.dataset.eightDollarsStatus === 'blueVerified') {
     // already replaced this element
     return
@@ -192,7 +192,7 @@ function changeBlueVerified(prependText, elm, isSmall) {
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_TWITTER_BLUE_LABEL}</p>
     </span>`
   try {
-    if (prependText !== "") {
+    if (prependHTML !== "") {
       // Ideally, we wouldn't mutate the parent element, because those 2 styles won't be managed by us further on.
       // That is, if the `aria-label`-selected element changes, the parent styles won't be properly updated.
       // This approach is tolerable, because it's unlikely that a `aria-label`-selected element changes from a
@@ -201,9 +201,9 @@ function changeBlueVerified(prependText, elm, isSmall) {
       elm.parentElement.style.alignItems = "center";  
     }
     if (isSmall || !TEXT_ENABLED) {
-      elm.parentElement.innerHTML = `${prependText}${small}`;
+      elm.parentElement.innerHTML = `${prependHTML}${small}`;
     } else {
-      elm.parentElement.innerHTML = `${prependText}${big}`;
+      elm.parentElement.innerHTML = `${prependHTML}${big}`;
     }
   } catch (e) {
     console.error('error changing blue verified', e);
@@ -314,14 +314,14 @@ function evaluateBlueCheck() {
 
         const isSmall = checkIfSmall(blueCheckComponent)
         const isKnownBadData = checkIfKnownBadData(blueCheckComponent)
-        const prependText = blueCheckComponent.previousElementSibling?.outerHTML
+        const prependHTML = blueCheckComponent.previousElementSibling?.outerHTML
 
         if (isKnownBadData && nestedProps.isVerified && nestedProps.isBlueVerified) {
-          changeVerified(prependText, blueCheckComponent, isSmall, true);
+          changeVerified(prependHTML, blueCheckComponent, isSmall, true);
         } else if (nestedProps.isVerified) {
-          changeVerified(prependText, blueCheckComponent, isSmall, false);
+          changeVerified(prependHTML, blueCheckComponent, isSmall, false);
         } else if (nestedProps.isBlueVerified) {
-          changeBlueVerified(prependText, blueCheckComponent, isSmall, false);
+          changeBlueVerified(prependHTML, blueCheckComponent, isSmall, false);
         }
         continue
       }
