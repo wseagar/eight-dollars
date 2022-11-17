@@ -133,7 +133,7 @@ function getOriginalClasses(elm) {
   return [...elm.classList].join(" ")
 }
 
-function changeVerified(elm, isSmall, isIndeterminate) {
+function changeVerified(prependHTML, elm, isSmall, isIndeterminate) {
   if (elm.dataset.eightDollarsStatus === 'verified') {
     // already replaced this element
     return
@@ -149,22 +149,30 @@ function changeVerified(elm, isSmall, isIndeterminate) {
   const small = REGULAR_BLUE_CHECK_SVG(true, getOriginalClasses(elm));
   const smallInnerElement = REGULAR_BLUE_CHECK_SVG(false, getOriginalClasses(elm));
   const big =  `
-    <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: ${TEXT_VERIFIED_LABEL ? 0.2 : 0}rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="verified" data-eight-dollars-original-classes="${getOriginalClasses(elm)}">
+    <span style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: ${TEXT_VERIFIED_LABEL ? 0.2 : 0}rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="verified" data-eight-dollars-original-classes="${getOriginalClasses(elm)}">
       ${smallInnerElement}
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_VERIFIED_LABEL}</p>
-    </div>`;
+    </span>`;
   try {
+    if (prependHTML !== "") {
+      // Ideally, we wouldn't mutate the parent element, because those 2 styles won't be managed by us further on.
+      // That is, if the `aria-label`-selected element changes, the parent styles won't be properly updated.
+      // This approach is tolerable, because it's unlikely that a `aria-label`-selected element changes from a
+      // "React text node + React element node" sibling configuration to a "single React element node" sibling configuration.
+      elm.parentElement.style.display = "inline-flex";
+      elm.parentElement.style.alignItems = "center";  
+    }
     if (isSmall || !TEXT_ENABLED) {
-      elm.parentElement.innerHTML = small;
+      elm.parentElement.innerHTML = `${prependHTML}${small}`;
     } else {
-      elm.parentElement.innerHTML = big;
+      elm.parentElement.innerHTML = `${prependHTML}${big}`;
     }
   } catch (e) {
     console.error('error changing verified', e);
   }
 }
 
-function changeBlueVerified(elm, isSmall) {
+function changeBlueVerified(prependHTML, elm, isSmall) {
   if (elm.dataset.eightDollarsStatus === 'blueVerified') {
     // already replaced this element
     return
@@ -179,15 +187,23 @@ function changeBlueVerified(elm, isSmall) {
   const small = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(true, getOriginalClasses(elm))}` : `${REGULAR_BLUE_DOLLAR_SVG(true, getOriginalClasses(elm))}`
   const smallInnerElement = MEME_MODE ? `${COMIC_SANS_BLUE_DOLLAR_SVG(false, getOriginalClasses(elm))}` : `${REGULAR_BLUE_DOLLAR_SVG(false, getOriginalClasses(elm))}`
   const big = `
-    <div style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: ${TEXT_TWITTER_BLUE_LABEL ? 0.2 : 0}rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="blueVerified" data-eight-dollars-original-classes="${getOriginalClasses(elm)}">
+    <span style='margin-left: 0.25rem; display: flex; flex-direction: row; align-items: center;${TEXT_ENABLE_BORDER ? ` border-radius: 120px; border: 1px solid #536471;`: ``} padding: 0.1rem 0.4rem 0.1rem 0.2rem; gap: ${TEXT_TWITTER_BLUE_LABEL ? 0.2 : 0}rem;' aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}" data-eight-dollars-status="blueVerified" data-eight-dollars-original-classes="${getOriginalClasses(elm)}">
       ${smallInnerElement}
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_TWITTER_BLUE_LABEL}</p>
-    </div>`
+    </span>`
   try {
+    if (prependHTML !== "") {
+      // Ideally, we wouldn't mutate the parent element, because those 2 styles won't be managed by us further on.
+      // That is, if the `aria-label`-selected element changes, the parent styles won't be properly updated.
+      // This approach is tolerable, because it's unlikely that a `aria-label`-selected element changes from a
+      // "React text node + React element node" sibling configuration to a "single React element node" sibling configuration.
+      elm.parentElement.style.display = "inline-flex";
+      elm.parentElement.style.alignItems = "center";  
+    }
     if (isSmall || !TEXT_ENABLED) {
-      elm.parentElement.innerHTML = small;
+      elm.parentElement.innerHTML = `${prependHTML}${small}`;
     } else {
-      elm.parentElement.innerHTML = big;
+      elm.parentElement.innerHTML = `${prependHTML}${big}`;
     }
   } catch (e) {
     console.error('error changing blue verified', e);
@@ -287,6 +303,26 @@ function evaluateBlueCheck() {
       if (!nestedProps) {
         // some components don't have nested props,
         // so we can't do anything with them
+
+        const propsToLookInto = getReactProps(blueCheckComponent.parentElement.parentElement, blueCheckComponent.parentElement)
+        const elementChild = propsToLookInto?.children.find(child => child.$$typeof === Symbol.for('react.element'))
+        const nestedProps = elementChild?.props
+
+        if (!nestedProps) {
+          continue
+        }
+
+        const isSmall = checkIfSmall(blueCheckComponent)
+        const isKnownBadData = checkIfKnownBadData(blueCheckComponent)
+        const prependHTML = blueCheckComponent.previousElementSibling?.outerHTML
+
+        if (isKnownBadData && nestedProps.isVerified && nestedProps.isBlueVerified) {
+          changeVerified(prependHTML, blueCheckComponent, isSmall, true);
+        } else if (nestedProps.isVerified) {
+          changeVerified(prependHTML, blueCheckComponent, isSmall, false);
+        } else if (nestedProps.isBlueVerified) {
+          changeBlueVerified(prependHTML, blueCheckComponent, isSmall, false);
+        }
         continue
       }
 
@@ -294,11 +330,11 @@ function evaluateBlueCheck() {
       const isKnownBadData = checkIfKnownBadData(blueCheckComponent)
 
       if (isKnownBadData && nestedProps.isVerified && nestedProps.isBlueVerified) {
-        changeVerified(blueCheckComponent, isSmall, true);
+        changeVerified("", blueCheckComponent, isSmall, true);
       } else if (nestedProps.isVerified) {
-        changeVerified(blueCheckComponent, isSmall, false);
+        changeVerified("", blueCheckComponent, isSmall, false);
       } else if (nestedProps.isBlueVerified) {
-        changeBlueVerified(blueCheckComponent, isSmall, false);
+        changeBlueVerified("", blueCheckComponent, isSmall, false);
       }
     }
     catch (e) {
@@ -320,9 +356,9 @@ function evaluateBlueCheckProvidesDetails() {
       }
 
       if (nestedProps.isVerified) {
-        changeVerified(changeTarget, isSmall, false);
+        changeVerified("", changeTarget, isSmall, false);
       } else if (nestedProps.isBlueVerified) {
-        changeBlueVerified(changeTarget, isSmall, false);
+        changeBlueVerified("", changeTarget, isSmall, false);
       }
     } catch (e) {
       console.error("Error getting 'Provides details' react props: ", e)
