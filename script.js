@@ -154,14 +154,18 @@ function changeVerified(prependText, elm, isSmall, isIndeterminate) {
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_VERIFIED_LABEL}</p>
     </span>`;
   try {
+    if (prependText !== "") {
+      // Ideally, we wouldn't mutate the parent element, because those 2 styles won't be managed by us further on.
+      // That is, if the `aria-label`-selected element changes, the parent styles won't be properly updated.
+      // This approach is tolerable, because it's unlikely that a `aria-label`-selected element changes from a
+      // "React text node + React element node" sibling configuration to a "single React element node" sibling configuration.
+      elm.parentElement.style.display = "inline-flex";
+      elm.parentElement.style.alignItems = "center";  
+    }
     if (isSmall || !TEXT_ENABLED) {
-      elm.parentElement.style.display = "inline-flex";
-      elm.parentElement.style.alignItems = "center";
-      elm.parentElement.innerHTML = `${prependText + small}`;
+      elm.parentElement.innerHTML = `${prependText}${small}`;
     } else {
-      elm.parentElement.style.display = "inline-flex";
-      elm.parentElement.style.alignItems = "center";
-      elm.parentElement.innerHTML = `${prependText + big}`;
+      elm.parentElement.innerHTML = `${prependText}${big}`;
     }
   } catch (e) {
     console.error('error changing verified', e);
@@ -188,14 +192,18 @@ function changeBlueVerified(prependText, elm, isSmall) {
       <p style=' font-size: 0.8rem; margin: 0; font-weight: 600;'>${TEXT_TWITTER_BLUE_LABEL}</p>
     </span>`
   try {
+    if (prependText !== "") {
+      // Ideally, we wouldn't mutate the parent element, because those 2 styles won't be managed by us further on.
+      // That is, if the `aria-label`-selected element changes, the parent styles won't be properly updated.
+      // This approach is tolerable, because it's unlikely that a `aria-label`-selected element changes from a
+      // "React text node + React element node" sibling configuration to a "single React element node" sibling configuration.
+      elm.parentElement.style.display = "inline-flex";
+      elm.parentElement.style.alignItems = "center";  
+    }
     if (isSmall || !TEXT_ENABLED) {
-      elm.parentElement.style.display = "inline-flex";
-      elm.parentElement.style.alignItems = "center";
-      elm.parentElement.innerHTML = `${prependText + small}`;
+      elm.parentElement.innerHTML = `${prependText}${small}`;
     } else {
-      elm.parentElement.style.display = "inline-flex";
-      elm.parentElement.style.alignItems = "center";
-      elm.parentElement.innerHTML = `${prependText + big}`;
+      elm.parentElement.innerHTML = `${prependText}${big}`;
     }
   } catch (e) {
     console.error('error changing blue verified', e);
