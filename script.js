@@ -287,6 +287,24 @@ function evaluateBlueCheck() {
       if (!nestedProps) {
         // some components don't have nested props,
         // so we can't do anything with them
+
+        const propsToLookInto = getReactProps(blueCheckComponent.parentElement.parentElement, blueCheckComponent.parentElement)
+        const nestedProps = propsToLookInto?.children[1]?.props
+
+        if (!nestedProps) {
+          continue
+        }
+
+        const isSmall = checkIfSmall(blueCheckComponent)
+        const isKnownBadData = checkIfKnownBadData(blueCheckComponent)
+
+        if (isKnownBadData && nestedProps.isVerified && nestedProps.isBlueVerified) {
+          changeVerified(blueCheckComponent, isSmall, true);
+        } else if (nestedProps.isVerified) {
+          changeVerified(blueCheckComponent, isSmall, false);
+        } else if (nestedProps.isBlueVerified) {
+          changeBlueVerified(blueCheckComponent, isSmall, false);
+        }
         continue
       }
 
