@@ -220,6 +220,16 @@ function querySelectorAllIncludingMe(node, selector) {
   return [...node.querySelectorAll(selector)]
 }
 
+function getPreviusSiblingsOuterHTML(node) {
+  let prev = node.previousElementSibling;
+  let html = [];
+  while (prev) {
+    html.push(prev.outerHTML);
+    prev = prev.previousElementSibling;
+  }
+  return html.reverse().join('');
+}
+
 // From https://stackoverflow.com/a/74240138/2230249
 function getReactProps(parent, target) {
   const keyof_ReactProps = Object.keys(parent).find(k => k.startsWith("__reactProps$"));
@@ -314,7 +324,7 @@ function evaluateBlueCheck() {
 
         const isSmall = checkIfSmall(blueCheckComponent)
         const isKnownBadData = checkIfKnownBadData(blueCheckComponent)
-        const prependHTML = blueCheckComponent.previousElementSibling?.outerHTML
+        const prependHTML = getPreviusSiblingsOuterHTML(blueCheckComponent)
 
         if (isKnownBadData && nestedProps.isVerified && nestedProps.isBlueVerified) {
           changeVerified(prependHTML, blueCheckComponent, isSmall, true);
