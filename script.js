@@ -158,7 +158,7 @@ function changeVerified(prependHTML, elm, isSmall, isIndeterminate) {
       // Ideally, we wouldn't mutate the parent element, because those 2 styles won't be managed by us further on.
       // That is, if the `aria-label`-selected element changes, the parent styles won't be properly updated.
       // This approach is tolerable, because it's unlikely that a `aria-label`-selected element changes from a
-      // "React text node + React element node" sibling configuration to a "single React element node" sibling configuration.
+      // "React text node(s) + React element node" sibling configuration to a "single React element node" sibling configuration.
       elm.parentElement.style.display = "inline-flex";
       elm.parentElement.style.alignItems = "center";  
     }
@@ -196,7 +196,7 @@ function changeBlueVerified(prependHTML, elm, isSmall) {
       // Ideally, we wouldn't mutate the parent element, because those 2 styles won't be managed by us further on.
       // That is, if the `aria-label`-selected element changes, the parent styles won't be properly updated.
       // This approach is tolerable, because it's unlikely that a `aria-label`-selected element changes from a
-      // "React text node + React element node" sibling configuration to a "single React element node" sibling configuration.
+      // "React text node(s) + React element node" sibling configuration to a "single React element node" sibling configuration.
       elm.parentElement.style.display = "inline-flex";
       elm.parentElement.style.alignItems = "center";  
     }
