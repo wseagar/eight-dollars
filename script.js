@@ -210,7 +210,7 @@ function changeBlueVerified(prependHTML, elm, isSmall) {
   }
 }
 
-const BLUE_CHECK_PATTERN_NEW = `[aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}"]`
+const BLUE_CHECK_PATTERN_NEW = `:not([aria-label="${PROVIDES_DETAILS_ARIA_LABEL}"]) > [aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}"]`
 const BLUE_CHECK_PATTERN_PROVIDE_DETAILS = `[aria-label="${PROVIDES_DETAILS_ARIA_LABEL}"]`
 
 function querySelectorAllIncludingMe(node, selector) {
