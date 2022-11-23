@@ -57,12 +57,20 @@ function modifyDropdown(node) {
     cursor: pointer;
   }
   .searchTag {
-    color: #1d9bf0;
+    font-size: 0.9rem;
+    color: #b4b4b4;
+    background-color: #202327;
     font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-    font-weight: 700;
-    padding: 0.2rem;
-    border-radius: 4px;
+    font-weight: 400;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
   }
+.eightDollarsSearchTags {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem;
+}
+
   .searchFrom:before {
     content: "From: ";
     display: flex;
@@ -330,7 +338,7 @@ function createTag(user, query) {
   const d = document.createElement("div");
   d.classList.add("eightDollarsSearchTags");
   d.dataset.user = user;
-  d.innerHTML = `<div class="searchTag">User: ${user}</div>`;
+  d.innerHTML = `<div class="searchTag"><strong>User:</strong> ${user}</div>`;
   elm.appendChild(d);
   triggerSetStateReactInput(searchInput, query, true);
   removeElements(".searchResult");
