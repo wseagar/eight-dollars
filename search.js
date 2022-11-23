@@ -162,7 +162,29 @@ color: black;
   let container = document.createElement("div");
   container.innerHTML = advancedSearch;
   node.prepend(container);
+  document.getElementById("searchUser").addEventListener("click", function (e) {
+    e.preventDefault();
+    const elm = document.querySelector("input[placeholder='Search Twitter']");
+    setNativeValue(elm, "from:");
+    elm.dispatchEvent(new Event("input", { bubbles: true }));
+    elm.focus();
+  });
   node.dataset.processed = true;
+}
+
+function setNativeValue(element, value) {
+  const valueSetter = Object.getOwnPropertyDescriptor(element, "value").set;
+  const prototype = Object.getPrototypeOf(element);
+  const prototypeValueSetter = Object.getOwnPropertyDescriptor(
+    prototype,
+    "value"
+  ).set;
+
+  if (valueSetter && valueSetter !== prototypeValueSetter) {
+    prototypeValueSetter.call(element, value);
+  } else {
+    valueSetter.call(element, value);
+  }
 }
 
 async function fetchSearchResults(value) {
