@@ -282,10 +282,15 @@ async function main() {
           const dropdown2 = mutation.target.querySelector(
             "#typeaheadDropdown-2"
           );
+          const dropdown3 = mutation.target.querySelector(
+            "#typeaheadDropdown-3"
+          );
           if (dropdown) {
             modifyDropdown(dropdown);
           } else if (dropdown2) {
             modifyDropdown(dropdown2);
+          } else if (dropdown3) {
+            modifyDropdown(dropdown3);
           }
         }
         for (const node of mutation.addedNodes) {
@@ -303,10 +308,15 @@ async function main() {
             const dropdown2 = mutation.target.querySelector(
               "#typeaheadDropdown-2"
             );
+            const dropdown3 = mutation.target.querySelector(
+              "#typeaheadDropdown-3"
+            );
             if (dropdown) {
               modifyDropdown(dropdown);
             } else if (dropdown2) {
               modifyDropdown(dropdown2);
+            } else if (dropdown3) {
+              modifyDropdown(dropdown3);
             }
           }
         }
