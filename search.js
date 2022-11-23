@@ -1,7 +1,7 @@
 function modifyDropdown(node) {
   if (node.dataset.processed) {
     // already processed
-    return 
+    return;
   }
 
   const advancedSearch = `
@@ -34,10 +34,18 @@ function modifyDropdown(node) {
     padding: 0.5rem 1rem;
     transition: all 0.1s linear;
   }
-
   .searchItem:hover{
     color: #1D9BF0;
   }
+
+@media (prefers-color-scheme: light) {
+  html .searchContainerMemeHeading { 
+    color: black;
+  }
+    html .searchItem { 
+    color: black;
+  }
+}
   </style>
   </div>
   `;
