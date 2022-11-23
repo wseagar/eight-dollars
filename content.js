@@ -26,12 +26,23 @@ function injectScript() {
   document.head.appendChild(s);
 }
 
+function injectSearch() {
+  const s = document.createElement("script", { id: "eight-dollars-search" });
+  s.src = chrome.runtime.getURL("search.js");
+  s.onload = function () {
+    this.remove();
+  };
+  document.head.appendChild(s);
+}
+
 if (typeof chrome !== "undefined" && chrome.storage) {
   chrome.storage.local.get(defaultConfig, function (items) {
     createSettingsDomNode(items);
     injectScript();
+    injectSearch();
   });
 } else {
   createSettingsDomNode(defaultConfig);
   injectScript();
+  injectSearch();
 }
