@@ -113,6 +113,13 @@ function modifyDropdown(node) {
     padding: 0.2rem;
     border-radius: 4px;
   }
+
+.searchResultUser {
+color: white;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    padding: 0.5rem 1rem;
+}
+  
 @media (prefers-color-scheme: light) {
   html .searchContainerMemeHeading { 
     color: black;
@@ -120,6 +127,9 @@ function modifyDropdown(node) {
     html .searchItem { 
     color: black;
   }
+  .searchResultUser {
+color: black;
+}
 }
   </style>
   </div>
@@ -141,7 +151,9 @@ async function fetchSearchResults(value) {
   console.log(user);
 
   const result = await fetch(
-    `https://twitter.com/i/api/1.1/search/typeahead.json?include_ext_is_blue_verified=1&q=${encodeURIComponent(user)}&src=search_box&result_type=users`,
+    `https://twitter.com/i/api/1.1/search/typeahead.json?include_ext_is_blue_verified=1&q=${encodeURIComponent(
+      user
+    )}&src=search_box&result_type=events%2Cusers%2Ctopics`,
     {
       headers: {
         authorization: `Bearer ${bearerToken}`,
@@ -164,8 +176,10 @@ async function fetchSearchResults(value) {
   const elm = document.querySelector(".searchContainer");
   elm.prepend(
     ...names.map((name) => {
-      const e = document.createElement("div");
+      const e = document.createElement("p");
       e.innerText = name;
+
+      e.classList.add("searchResultUser");
       return e;
     })
   );
