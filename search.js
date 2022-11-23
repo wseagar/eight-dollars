@@ -24,12 +24,12 @@ function modifyDropdown(node) {
   <div class='searchContainer'>
   <div id='tagSelectDestination'></div>
   <h4 class="searchContainerMemeHeading">Search Options</h4>   
-  <input type="button" id='searchUser' class='searchItem'><strong>from:</strong> user</input>
-  <input type="button" id='searchMentions' class='searchItem'><strong>mentions:</strong> user</input>
-  <input type="button" id='searchLinks' class='searchItem'><strong>has:</strong> link, embed, or file</input>
-  <input type="button" id='searchBefore' class='searchItem'><strong>before:</strong> specific date</input>
-  <input type="button" id='searchDuring' class='searchItem'><strong>during:</strong> specific date</input>
-  <input type="button" id='searchAfter' class='searchItem'><strong>after:</strong> specific date</input>
+  <a id='searchUser' class='searchItem'><strong>from:</strong> user</a>
+  <a id='searchMentions' class='searchItem'><strong>mentions:</strong> user</a>
+  <a id='searchLinks' class='searchItem'><strong>has:</strong> link, embed, or file</a>
+  <a id='searchBefore' class='searchItem'><strong>before:</strong> specific date</a>
+  <a id='searchDuring' class='searchItem'><strong>during:</strong> specific date</a>
+  <a id='searchAfter' class='searchItem'><strong>after:</strong> specific date</a>
   <style>
   .searchContainer {
     padding-bottom: 1rem;
@@ -43,7 +43,7 @@ function modifyDropdown(node) {
   .searchItem {
     color: white;
     font-size: 14px;
-    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     width: 100%;
     display: block;
     background: none;
@@ -51,8 +51,12 @@ function modifyDropdown(node) {
     padding: 0.5rem 1rem;
     transition: all 0.1s linear;
   }
+  .searchItem p {
+    font-family: inherit;
+  }
   .searchItem:hover{
     color: #1D9BF0;
+    cursor: pointer;
   }
   .searchFrom:before {
     content: "From: ";
