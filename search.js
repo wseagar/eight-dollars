@@ -55,6 +55,15 @@ function modifyDropdown(node) {
   node.dataset.processed = true;
 }
 
+function hookInput(node) {
+  if (node.dataset.processed) {
+    // already processed
+    return;
+  }
+
+  node.dataset.processed = true;
+}
+
 async function main() {
   const observer = new MutationObserver(function (mutations, observer) {
     try {
@@ -69,6 +78,13 @@ async function main() {
         }
         for (const node of mutation.addedNodes) {
           if (node.nodeType === 1) {
+            const input = node.querySelector(
+              "input[placeholder='Search Twitter']"
+            );
+            if (input) {
+              hookInput(input);
+            }
+
             const dropdown = mutation.target.querySelector(
               "#typeaheadDropdown-1"
             );
