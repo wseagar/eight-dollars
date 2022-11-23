@@ -180,10 +180,13 @@ async function fetchSearchResults(value) {
   const elm = document.querySelector(".searchContainer");
   elm.prepend(
     ...names.map((name) => {
-      const e = document.createElement("p");
-      e.innerText = name;
+      const e = document.createElement("div");
+      e.innerHTML = `
+          <div class="searchResult">
+              <div class="searchResultUser">${name}</div>
 
-      e.classList.add("searchResultUser");
+          </div>
+      `;
       return e;
     })
   );
