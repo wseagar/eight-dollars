@@ -119,6 +119,10 @@ color: white;
     font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
     padding: 0.5rem 1rem;
 }
+.searchResultUser:hover {
+    color: #1d9bf0;
+    cursor: pointer;
+}
   
 @media (prefers-color-scheme: light) {
   html .searchContainerMemeHeading { 
