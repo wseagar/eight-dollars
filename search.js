@@ -269,8 +269,14 @@ async function main() {
           const dropdown = mutation.target.querySelector(
             "#typeaheadDropdown-1"
           );
+          const dropdown2 = mutation.target.querySelector(
+            "#typeaheadDropdown-2"
+          );
           if (dropdown) {
             modifyDropdown(dropdown);
+          }
+          else if (dropdown2) {
+            modifyDropdown(dropdown2);
           }
         }
         for (const node of mutation.addedNodes) {
@@ -285,8 +291,14 @@ async function main() {
             const dropdown = mutation.target.querySelector(
               "#typeaheadDropdown-1"
             );
+            const dropdown2 = mutation.target.querySelector(
+              "#typeaheadDropdown-2"
+            );
             if (dropdown) {
               modifyDropdown(dropdown);
+            }
+            else if (dropdown2) {
+              modifyDropdown(dropdown2);
             }
           }
         }
