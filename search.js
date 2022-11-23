@@ -10,7 +10,7 @@ function modifyDropdown(node) {
   <button class='searchItem'><strong>after:</strong> specific date</button>
   </div>
   `;
-  node.parentElement.innerHTML = `${advancedSearch}`;
+  node.innerHTML = `${advancedSearch}`;
 }
 
 async function main() {
