@@ -39,7 +39,66 @@ function modifyDropdown(node) {
   .searchItem:hover{
     color: #1D9BF0;
   }
-
+  .searchFrom {
+    content: "From: ";
+    display: flex;
+    flex-direction: row;
+    color: #1d9bf0;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    font-weight: 700;
+    padding: 0.2rem;
+    border-radius: 4px;
+  }
+    .searchMentions {
+    content: "Mentions: ";
+    display: flex;
+    flex-direction: row;
+    color: #1d9bf0;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    font-weight: 700;
+    padding: 0.2rem;
+    border-radius: 4px;
+  }
+    .searchHas {
+    content: "Has: ";
+    display: flex;
+    flex-direction: row;
+    color: #1d9bf0;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    font-weight: 700;
+    padding: 0.2rem;
+    border-radius: 4px;
+  }
+      .searchBefore {
+    content: "Before: ";
+    display: flex;
+    flex-direction: row;
+    color: #1d9bf0;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    font-weight: 700;
+    padding: 0.2rem;
+    border-radius: 4px;
+  }
+        .searchDuring {
+    content: "During: ";
+    display: flex;
+    flex-direction: row;
+    color: #1d9bf0;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    font-weight: 700;
+    padding: 0.2rem;
+    border-radius: 4px;
+  }
+        .searchAfter {
+    content: "After: ";
+    display: flex;
+    flex-direction: row;
+    color: #1d9bf0;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    font-weight: 700;
+    padding: 0.2rem;
+    border-radius: 4px;
+  }
 @media (prefers-color-scheme: light) {
   html .searchContainerMemeHeading { 
     color: black;
