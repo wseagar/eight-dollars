@@ -116,7 +116,7 @@ function modifyDropdown(node) {
 .searchResult {
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
+  gap: 0.75rem;
   text-decoration: none;
   color: inherit;
   padding: 0.5rem 1rem;
