@@ -239,12 +239,16 @@ async function fetchSearchResults(value) {
     `;
     userRow.addEventListener("click", function (e) {
       e.preventDefault();
-      const elm = document.querySelector(
+      const searchTwitterElm = document.querySelector(
         "input[placeholder='Search Twitter']"
       );
-      setNativeValue(elm, "from: " + user.screen_name);
-      elm.dispatchEvent(new Event("input", { bubbles: true }));
-      elm.focus();
+      setNativeValue(searchTwitterElm, "from: " + user.screen_name + " ");
+      searchTwitterElm.dispatchEvent(new Event("input", { bubbles: true }));
+      searchTwitterElm.focus();
+
+      while (elm.firstChild) {
+        elm.removeChild(elm.firstChild);
+      }    
     });
     elm.appendChild(userRow);
   })
