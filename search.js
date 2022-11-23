@@ -259,6 +259,30 @@ async function fetchSearchResults(value) {
   });
 }
 
+function getSearchTokens(search) {
+  const regex = /from:\s?@?(?<user>\w*)/;
+  const match = search.match(regex);
+
+  if (match === null || match.groups === null || !match.groups.user) {
+    return { query: search, user: undefined };
+  }
+  const query = search.replace(regex, "");
+
+  return { user: match.groups.user, query };
+}
+
+function onSubmitSearch(search) {
+  const { query, user } = getSearchTokens(search);
+  const baseUrl = "https://twitter.com/search?q=";
+  let url = baseUrl + encodeURIComponent(query);
+  if (user) {
+    url += encodeURIComponent(` (from:${user})`);
+  }
+  url += "&src=typed_query";
+  console.log(url);
+  document.location.href = url;
+}
+
 function hookInput(node) {
   if (node.dataset.processed) {
     // already processed
@@ -270,6 +294,12 @@ function hookInput(node) {
     console.log("keydown", e.target.value);
     if (e.target.value.includes("from:")) {
       fetchSearchResults(e.target.value);
+    }
+
+    console.log(e.key);
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSubmitSearch(e.target.value);
     }
   });
 
