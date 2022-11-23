@@ -1,4 +1,9 @@
 function modifyDropdown(node) {
+  if (node.dataset.processed) {
+    // already processed
+    return 
+  }
+
   const advancedSearch = `
   <div class='searchContainer'>
   <h4 class="searchContainerMemeHeading">Search Options</h4>   
@@ -36,7 +41,10 @@ function modifyDropdown(node) {
   </style>
   </div>
   `;
-  node.innerHTML = `${advancedSearch}`;
+  let container = document.createElement("div");
+  container.innerHTML = advancedSearch;
+  node.prepend(container);
+  node.dataset.processed = true;
 }
 
 async function main() {
@@ -49,6 +57,16 @@ async function main() {
           );
           if (dropdown) {
             modifyDropdown(dropdown);
+          }
+        }
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType === 1) {
+            const dropdown = mutation.target.querySelector(
+              "#typeaheadDropdown-1"
+            );
+            if (dropdown) {
+              modifyDropdown(dropdown);
+            }
           }
         }
       }
