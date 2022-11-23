@@ -6,13 +6,10 @@ const bearerToken = Object.values(
   .find((e) => e.toString().match(/ACTION_FLUSH/))
   .toString()
   .match(/l="([A-Za-z0-9\%]+)"/)[1];
-console.log("[TWITTER API] bearerToken", bearerToken);
 
 const csrfToken = Object.fromEntries(
   document.cookie.split(";").map((e) => e.split("="))
 )[" ct0"];
-
-console.log("[TWITTER API] CSRF TOKEN", csrfToken);
 
 function modifyDropdown(node) {
   if (node.dataset.processed || !searchInput) {
@@ -58,6 +55,13 @@ function modifyDropdown(node) {
   .searchItem:hover{
     color: #1D9BF0;
     cursor: pointer;
+  }
+  .searchTag {
+    color: #1d9bf0;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    font-weight: 700;
+    padding: 0.2rem;
+    border-radius: 4px;
   }
   .searchFrom:before {
     content: "From: ";
@@ -174,11 +178,17 @@ color: black;
   document.getElementById("searchUser").addEventListener("click", function (e) {
     e.preventDefault();
     const elm = document.querySelector("input[placeholder='Search Twitter']");
-    setNativeValue(elm, "from:");
-    elm.dispatchEvent(new Event("input", { bubbles: true }));
-    elm.focus();
+    triggerSetStateReactInput(elm, "from:", true);
   });
   node.dataset.processed = true;
+}
+
+function triggerSetStateReactInput(elm, value, focus = false) {
+  setNativeValue(elm, value);
+  elm.dispatchEvent(new Event("input", { bubbles: true }));
+  if (focus) {
+    elm.focus();
+  }
 }
 
 function setNativeValue(element, value) {
@@ -196,16 +206,7 @@ function setNativeValue(element, value) {
   }
 }
 
-async function fetchSearchResults(value) {
-  const query = value.replace("from:", "");
-  console.log(query);
-  const [user, ...rest] = query.split(" ");
-  if (!user) {
-    return;
-  }
-
-  console.log(user);
-
+async function fetchSearchResults(user) {
   const result = await fetch(
     `https://twitter.com/i/api/1.1/search/typeahead.json?include_ext_is_blue_verified=1&q=${encodeURIComponent(
       user
@@ -225,27 +226,19 @@ async function fetchSearchResults(value) {
   }
   const json = await result.json();
 
-  console.log(json);
-
   const names = json.users.map((user) => user.screen_name);
-  console.log(names);
+  removeElements(".searchResult");
+
   const elm = document.querySelector("#tagSelectDestination");
-
-  // TODO: assert control of the keyboard here.
-
-  // remove all chidlren of elm
-  while (elm.firstChild) {
-    elm.removeChild(elm.firstChild);
-  }
 
   // add users to elm again
   json.users.forEach((user) => {
-    const userRow = document.createElement("a");
+    const userRow = document.createElement("div");
     userRow.classList.add("searchResult");
     if (elm.dataset.eightDollarsFocusedScreenName === user.screen_name) {
       userRow.classList.add("eightDollarsFocused");
     }
-    userRow.href = `/${user.screen_name}`;
+    // userRow.href = `/${user.screen_name}`;
     userRow.dataset.eightDollarsScreenName = user.screen_name;
     userRow.innerHTML = `
         
@@ -254,18 +247,9 @@ async function fetchSearchResults(value) {
         
     `;
     userRow.addEventListener("click", function (e) {
-      e.preventDefault();
-      const searchTwitterElm = document.querySelector(
-        "input[placeholder='Search Twitter']"
-      );
-      setNativeValue(searchTwitterElm, "from: " + user.screen_name + " ");
-      searchTwitterElm.dispatchEvent(new Event("input", { bubbles: true }));
-      searchTwitterElm.focus();
-
-      while (elm.firstChild) {
-        elm.removeChild(elm.firstChild);
-      }
-
+      // e.preventDefault();
+      // //removeElements(".searchResult");
+      createTag(user.screen_name, " ", true);
       // TODO: release control of keyboard
     });
     elm.appendChild(userRow);
@@ -285,14 +269,13 @@ function getSearchTokens(search) {
 }
 
 function onSubmitSearch(search) {
-  const { query, user } = getSearchTokens(search);
+  const user = document.querySelector(".eightDollarsSearchTags")?.dataset?.user;
   const baseUrl = "https://twitter.com/search?q=";
-  let url = baseUrl + encodeURIComponent(query);
+  let url = baseUrl + encodeURIComponent(search);
   if (user) {
     url += encodeURIComponent(` (from:${user})`);
   }
   url += "&src=typed_query";
-  console.log(url);
   document.location.href = url;
 }
 
@@ -313,7 +296,8 @@ function tagSelectDestinationSetNextFocus() {
   // set focused class on the next element
   if (next) {
     next.classList.add("eightDollarsFocused");
-    elm.dataset.eightDollarsFocusedScreenName = next.dataset.eightDollarsScreenName;
+    elm.dataset.eightDollarsFocusedScreenName =
+      next.dataset.eightDollarsScreenName;
   }
 }
 
@@ -329,12 +313,34 @@ function tagSelectDestinationSetPreviousFocus() {
   }
 
   // find the previous element
-  let previous = focused ? focused.previousElementSibling : elm.lastElementChild;
+  let previous = focused
+    ? focused.previousElementSibling
+    : elm.lastElementChild;
 
   // set focused class on the previous element
   if (previous) {
     previous.classList.add("eightDollarsFocused");
-    elm.dataset.eightDollarsFocusedScreenName = previous.dataset.eightDollarsScreenName;
+    elm.dataset.eightDollarsFocusedScreenName =
+      previous.dataset.eightDollarsScreenName;
+  }
+}
+
+function createTag(user, query) {
+  const elm = document.querySelector("#tagSelectDestination");
+  const d = document.createElement("div");
+  d.classList.add("eightDollarsSearchTags");
+  d.dataset.user = user;
+  d.innerHTML = `<div class="searchTag">User: ${user}</div>`;
+  elm.appendChild(d);
+  triggerSetStateReactInput(searchInput, query, true);
+  removeElements(".searchResult");
+}
+
+function removeElements(selector) {
+  const tags = document.querySelectorAll(selector);
+  for (const t of tags) {
+    // delete the tag node
+    t.parentNode.removeChild(t);
   }
 }
 
@@ -346,9 +352,19 @@ function hookInput(node) {
   searchInput = node;
 
   node.addEventListener("keydown", function (e) {
+    if (e.target.value === "" && e.key === "Backspace") {
+      removeElements(".eightDollarsSearchTags");
+    }
+
+    const { user, query } = getSearchTokens(e.target.value);
+
     // console.log("keydown", e.nativeEvent.which);
-    if (e.target.value.includes("from:")) {
-      fetchSearchResults(e.target.value);
+    if (user && !query) {
+      fetchSearchResults(user);
+    }
+
+    if (user && query) {
+      createTag(user, query);
     }
 
     console.log(e.key);
@@ -360,20 +376,17 @@ function hookInput(node) {
     if (e.nativeEvent.which == 38) {
       // down
       e.preventDefault();
-      e.stopPropagation();  
-      tagSelectDestinationSetPreviousFocus()
+      e.stopPropagation();
+      tagSelectDestinationSetPreviousFocus();
       return false;
-    }
-    else if (e.nativeEvent.which == 40) {
+    } else if (e.nativeEvent.which == 40) {
       // up
       e.preventDefault();
-      e.stopPropagation();  
+      e.stopPropagation();
 
-      tagSelectDestinationSetNextFocus()
+      tagSelectDestinationSetNextFocus();
       return false;
-
     }
-
   });
 
   node.dataset.processed = true;
