@@ -132,7 +132,7 @@ function modifyDropdown(node) {
   padding: 0.5rem 1rem;
 }
 .searchResult.eightDollarsFocused {
-  background-color: red;
+  background-color: rgb(255 255 255 / 10%);
 }
 
 .searchResult img {
@@ -370,7 +370,19 @@ function hookInput(node) {
     console.log(e.key);
     if (e.key === "Enter") {
       e.preventDefault();
-      onSubmitSearch(e.target.value);
+      e.stopPropagation();
+      if (
+        document.querySelector("#tagSelectDestination").dataset
+          .eightDollarsFocusedScreenName
+      ) {
+        selectFromTag(
+          document.querySelector("#tagSelectDestination").dataset
+            .eightDollarsFocusedScreenName
+        );
+      } else {
+        onSubmitSearch(e.target.value);
+      }
+      return false;
     }
 
     if (e.nativeEvent.which == 38) {
@@ -432,6 +444,7 @@ async function main() {
             const dropdown3 = mutation.target.querySelector(
               "#typeaheadDropdown-3"
             );
+            // TODO: there's typeaheadDropdown-9, might need to just look for all of them
             if (dropdown) {
               modifyDropdown(dropdown);
             } else if (dropdown2) {
