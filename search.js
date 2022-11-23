@@ -1,6 +1,9 @@
 let searchInput;
 
-const bearerToken = webpackChunk_twitter_responsive_web[2][1][63752]
+const bearerToken = Object.values(
+  webpackChunk_twitter_responsive_web.find((e) => e[0][0] === "main")[1]
+)
+  .find((e) => e.toString().match(/ACTION_FLUSH/))
   .toString()
   .match(/l="([A-Za-z0-9\%]+)"/)[1];
 console.log("[TWITTER API] bearerToken", bearerToken);
