@@ -179,11 +179,11 @@ async function fetchSearchResults(value) {
   console.log(names);
   const elm = document.querySelector(".searchContainer");
   elm.prepend(
-    ...names.map((name) => {
+    ...json.users.map((user) => {
       const e = document.createElement("div");
       e.innerHTML = `
           <div class="searchResult">
-              <div class="searchResultUser">${name}</div>
+              <div class="searchResultUser"><img src="${user.profile_image_url}"/><a href="/${user.screen_name}">${user.screen_name}</a></div>
 
           </div>
       `;
