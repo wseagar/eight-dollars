@@ -230,6 +230,15 @@ async function fetchSearchResults(value) {
 
           
       `;
+      e.addEventListener("click", function (e) {
+        e.preventDefault();
+        const elm = document.querySelector(
+          "input[placeholder='Search Twitter']"
+        );
+        setNativeValue(elm, "from: " + user.screen_name);
+        elm.dispatchEvent(new Event("input", { bubbles: true }));
+        elm.focus();
+      });
       return e;
     })
   );
