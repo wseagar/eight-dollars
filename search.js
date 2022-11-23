@@ -1,5 +1,7 @@
+let searchInput;
+
 function modifyDropdown(node) {
-  if (node.dataset.processed) {
+  if (node.dataset.processed || !searchInput) {
     // already processed
     return;
   }
@@ -55,11 +57,53 @@ function modifyDropdown(node) {
   node.dataset.processed = true;
 }
 
+async function fetchSearchResults(value) {
+  const query = value.replace("from:", "");
+  console.log(query);
+  const [user, ...rest] = query.split(" ");
+  if (!user) {
+    return;
+  }
+
+  console.log(user);
+
+  const result = await fetch(
+    `https://twitter.com/i/api/1.1/search/typeahead.json?include_ext_is_blue_verified=1&q=${user}&src=search_box&result_type=events%2Cusers%2Ctopics`,
+    {
+      headers: {
+        authorization: "todo",
+        accept: "application/json",
+        "x-csrf-token": "todo",
+      },
+      method: "GET",
+    }
+  );
+  if (result.status !== 200) {
+    console.log(await result.text());
+    return;
+  }
+  const json = await result.json();
+
+  const names = json.users.map((user) => user.screen_name);
+  const elm = document.querySelector(".searchContainer");
+  elm.prepend(
+    names.map((name) => document.createElement("div").innerHTML(name))
+  );
+}
+
 function hookInput(node) {
   if (node.dataset.processed) {
     // already processed
     return;
   }
+  searchInput = node;
+
+  node.addEventListener("keydown", function (e) {
+    console.log("keydown", e.target.value);
+    if (e.target.value.includes("from:")) {
+      fetchSearchResults(e.target.value);
+    }
+  });
 
   node.dataset.processed = true;
 }
