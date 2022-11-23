@@ -42,7 +42,7 @@ function modifyDropdown(node) {
   .searchItem:hover{
     color: #1D9BF0;
   }
-  .searchFrom {
+  .searchFrom:before {
     content: "From: ";
     display: flex;
     flex-direction: row;
@@ -52,7 +52,7 @@ function modifyDropdown(node) {
     padding: 0.2rem;
     border-radius: 4px;
   }
-    .searchMentions {
+    .searchMentions:before {
     content: "Mentions: ";
     display: flex;
     flex-direction: row;
@@ -62,7 +62,7 @@ function modifyDropdown(node) {
     padding: 0.2rem;
     border-radius: 4px;
   }
-    .searchHas {
+    .searchHas:before {
     content: "Has: ";
     display: flex;
     flex-direction: row;
@@ -72,7 +72,7 @@ function modifyDropdown(node) {
     padding: 0.2rem;
     border-radius: 4px;
   }
-      .searchBefore {
+      .searchBefore:before {
     content: "Before: ";
     display: flex;
     flex-direction: row;
@@ -82,7 +82,7 @@ function modifyDropdown(node) {
     padding: 0.2rem;
     border-radius: 4px;
   }
-        .searchDuring {
+        .searchDuring:before {
     content: "During: ";
     display: flex;
     flex-direction: row;
@@ -92,7 +92,7 @@ function modifyDropdown(node) {
     padding: 0.2rem;
     border-radius: 4px;
   }
-        .searchAfter {
+        .searchAfter:before {
     content: "After: ";
     display: flex;
     flex-direction: row;
