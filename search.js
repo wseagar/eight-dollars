@@ -196,6 +196,21 @@ function setNativeValue(element, value) {
   }
 }
 
+function selectFromTag(user_screen_name) {
+  const elm = document.querySelector("#tagSelectDestination");
+  const searchTwitterElm = document.querySelector(
+    "input[placeholder='Search Twitter']"
+  );
+  setNativeValue(searchTwitterElm, "from: " + user_screen_name + " ");
+  searchTwitterElm.dispatchEvent(new Event("input", { bubbles: true }));
+  searchTwitterElm.focus();
+
+  while (elm.firstChild) {
+    elm.removeChild(elm.firstChild);
+  }
+  elm.dataset.eightDollarsFocusedScreenName = "";
+}
+
 async function fetchSearchResults(value) {
   const query = value.replace("from:", "");
   console.log(query);
@@ -255,16 +270,7 @@ async function fetchSearchResults(value) {
     `;
     userRow.addEventListener("click", function (e) {
       e.preventDefault();
-      const searchTwitterElm = document.querySelector(
-        "input[placeholder='Search Twitter']"
-      );
-      setNativeValue(searchTwitterElm, "from: " + user.screen_name + " ");
-      searchTwitterElm.dispatchEvent(new Event("input", { bubbles: true }));
-      searchTwitterElm.focus();
-
-      while (elm.firstChild) {
-        elm.removeChild(elm.firstChild);
-      }
+      selectFromTag(user.screen_name);
 
       // TODO: release control of keyboard
     });
@@ -354,7 +360,14 @@ function hookInput(node) {
     console.log(e.key);
     if (e.key === "Enter") {
       e.preventDefault();
-      onSubmitSearch(e.target.value);
+      e.stopPropagation();  
+      if (document.querySelector("#tagSelectDestination").dataset.eightDollarsFocusedScreenName) {
+        selectFromTag(document.querySelector("#tagSelectDestination").dataset.eightDollarsFocusedScreenName);
+      }
+      else {
+        onSubmitSearch(e.target.value);
+      }
+      return false
     }
 
     if (e.nativeEvent.which == 38) {
