@@ -171,7 +171,7 @@ color: black;
   document.getElementById("searchUser").addEventListener("click", function (e) {
     e.preventDefault();
     const elm = document.querySelector("input[placeholder='Search Twitter']");
-    setNativeValue(elm, "from: ");
+    setNativeValue(elm, "from:");
     elm.dispatchEvent(new Event("input", { bubbles: true }));
     elm.focus();
   });
