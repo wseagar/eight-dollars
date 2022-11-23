@@ -50,6 +50,7 @@ function modifyDropdown(node) {
     border: none;
     padding: 0.5rem 1rem;
     transition: all 0.1s linear;
+    box-sizing: border-box;
   }
   .searchItem p {
     font-family: inherit;
