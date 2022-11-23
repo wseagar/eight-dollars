@@ -127,6 +127,9 @@ function modifyDropdown(node) {
   color: inherit;
   padding: 0.5rem 1rem;
 }
+.searchResult.eightDollarsFocused {
+  background-color: red;
+}
 
 .searchResult img {
   border-radius: 1200px;
@@ -228,6 +231,8 @@ async function fetchSearchResults(value) {
   console.log(names);
   const elm = document.querySelector("#tagSelectDestination");
 
+  // TODO: assert control of the keyboard here.
+
   // remove all chidlren of elm
   while (elm.firstChild) {
     elm.removeChild(elm.firstChild);
@@ -235,10 +240,12 @@ async function fetchSearchResults(value) {
 
   // add users to elm again
   json.users.forEach((user) => {
-    const userRow = document.createElement("div");
+    const userRow = document.createElement("a");
+    userRow.classList.add("searchResult");
+    userRow.href = `/${user.screen_name}`;
     userRow.innerHTML = `
         
-            <a class="searchResult" href="/${user.screen_name}"><img src="${user.profile_image_url}"/><div class="searchResultUser"><p><strong>${user.name}</strong></p><p>@${user.screen_name}</p></div></a>
+            <img src="${user.profile_image_url}"/><div class="searchResultUser"><p><strong>${user.name}</strong></p><p>@${user.screen_name}</p></div>
 
         
     `;
@@ -254,6 +261,8 @@ async function fetchSearchResults(value) {
       while (elm.firstChild) {
         elm.removeChild(elm.firstChild);
       }
+
+      // TODO: release control of keyboard
     });
     elm.appendChild(userRow);
   });
@@ -283,6 +292,46 @@ function onSubmitSearch(search) {
   document.location.href = url;
 }
 
+function tagSelectDestinationSetNextFocus() {
+  const elm = document.querySelector("#tagSelectDestination");
+
+  // find the element that currently has focus
+  const focused = elm.querySelector(".eightDollarsFocused");
+
+  // remove focus from the element that currently has focus
+  if (focused) {
+    focused.classList.remove("eightDollarsFocused");
+  }
+
+  // find the next element
+  let next = focused ? focused.nextElementSibling : elm.firstElementChild;
+
+  // set focused class on the next element
+  if (next) {
+    next.classList.add("eightDollarsFocused");
+  }
+}
+
+function tagSelectDestinationSetPreviousFocus() {
+  const elm = document.querySelector("#tagSelectDestination");
+
+  // find the element that currently has focus
+  const focused = elm.querySelector(".eightDollarsFocused");
+
+  // remove focus from the element that currently has focus
+  if (focused) {
+    focused.classList.remove("eightDollarsFocused");
+  }
+
+  // find the previous element
+  let previous = focused ? focused.previousElementSibling : elm.lastElementChild;
+
+  // set focused class on the previous element
+  if (previous) {
+    previous.classList.add("eightDollarsFocused");
+  }
+}
+
 function hookInput(node) {
   if (node.dataset.processed) {
     // already processed
@@ -291,7 +340,7 @@ function hookInput(node) {
   searchInput = node;
 
   node.addEventListener("keydown", function (e) {
-    console.log("keydown", e.target.value);
+    // console.log("keydown", e.nativeEvent.which);
     if (e.target.value.includes("from:")) {
       fetchSearchResults(e.target.value);
     }
@@ -301,6 +350,24 @@ function hookInput(node) {
       e.preventDefault();
       onSubmitSearch(e.target.value);
     }
+
+    if (e.nativeEvent.which == 38) {
+      // down
+      e.preventDefault();
+      e.stopPropagation();  
+      tagSelectDestinationSetPreviousFocus()
+      return false;
+    }
+    else if (e.nativeEvent.which == 40) {
+      // up
+      e.preventDefault();
+      e.stopPropagation();  
+
+      tagSelectDestinationSetNextFocus()
+      return false;
+
+    }
+
   });
 
   node.dataset.processed = true;
