@@ -22,6 +22,7 @@ function modifyDropdown(node) {
 
   const advancedSearch = `
   <div class='searchContainer'>
+  <div id='tagSelectDestination'></div>
   <h4 class="searchContainerMemeHeading">Search Options</h4>   
   <button id='searchUser' class='searchItem'><strong>from:</strong> user</button>
   <button id='searchMentions' class='searchItem'><strong>mentions:</strong> user</button>
@@ -220,28 +221,33 @@ async function fetchSearchResults(value) {
 
   const names = json.users.map((user) => user.screen_name);
   console.log(names);
-  const elm = document.querySelector(".searchContainer");
-  elm.prepend(
-    ...json.users.map((user) => {
-      const userRow = document.createElement("div");
-      userRow.innerHTML = `
-         
-              <a class="searchResult" href="/${user.screen_name}"><img src="${user.profile_image_url}"/><div class="searchResultUser"><p><strong>${user.name}</strong></p><p>@${user.screen_name}</p></div></a>
+  const elm = document.querySelector("#tagSelectDestination");
 
-          
-      `;
-      userRow.addEventListener("click", function (e) {
-        e.preventDefault();
-        const elm = document.querySelector(
-          "input[placeholder='Search Twitter']"
-        );
-        setNativeValue(elm, "from: " + user.screen_name);
-        elm.dispatchEvent(new Event("input", { bubbles: true }));
-        elm.focus();
-      });
-      return userRow;
-    })
-  );
+  // remove all chidlren of elm
+  while (elm.firstChild) {
+    elm.removeChild(elm.firstChild);
+  }
+
+  // add users to elm again
+  json.users.forEach((user) => {
+    const userRow = document.createElement("div");
+    userRow.innerHTML = `
+        
+            <a class="searchResult" href="/${user.screen_name}"><img src="${user.profile_image_url}"/><div class="searchResultUser"><p><strong>${user.name}</strong></p><p>@${user.screen_name}</p></div></a>
+
+        
+    `;
+    userRow.addEventListener("click", function (e) {
+      e.preventDefault();
+      const elm = document.querySelector(
+        "input[placeholder='Search Twitter']"
+      );
+      setNativeValue(elm, "from: " + user.screen_name);
+      elm.dispatchEvent(new Event("input", { bubbles: true }));
+      elm.focus();
+    });
+    elm.appendChild(userRow);
+  })
 }
 
 function hookInput(node) {
