@@ -141,7 +141,7 @@ async function fetchSearchResults(value) {
   console.log(user);
 
   const result = await fetch(
-    `https://twitter.com/i/api/1.1/search/typeahead.json?include_ext_is_blue_verified=1&q=${encodeURIComponent(user)}&src=search_box&result_type=events%2Cusers%2Ctopics`,
+    `https://twitter.com/i/api/1.1/search/typeahead.json?include_ext_is_blue_verified=1&q=${encodeURIComponent(user)}&src=search_box&result_type=users`,
     {
       headers: {
         authorization: `Bearer ${bearerToken}`,
