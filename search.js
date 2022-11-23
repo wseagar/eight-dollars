@@ -353,9 +353,6 @@ function hookInput(node) {
 
   node.addEventListener("keydown", function (e) {
     // console.log("keydown", e.nativeEvent.which);
-    if (e.target.value.includes("from:")) {
-      fetchSearchResults(e.target.value);
-    }
 
     console.log(e.key);
     if (e.key === "Enter") {
@@ -385,6 +382,12 @@ function hookInput(node) {
       tagSelectDestinationSetNextFocus()
       return false;
 
+    }
+
+
+    else if (e.target.value.includes("from:")) {
+      fetchSearchResults(e.target.value);
+      return false
     }
 
   });
