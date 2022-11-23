@@ -113,11 +113,32 @@ function modifyDropdown(node) {
     padding: 0.2rem;
     border-radius: 4px;
   }
+.searchResult {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem 1rem;
+}
+
+.searchResult img {
+  border-radius: 1200px;
+  width: 3rem;
+  height: 3rem;
+}
+.searchResult p {
+  margin: 0;
+  font-size: 0.9rem;
+}
 
 .searchResultUser {
 color: white;
     font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-    padding: 0.5rem 1rem;
+    justify-content: center;
+    gap: 0.2rem;
+    display: flex;
+    flex-direction: column;
 }
 .searchResultUser:hover {
     color: #1d9bf0;
@@ -182,10 +203,10 @@ async function fetchSearchResults(value) {
     ...json.users.map((user) => {
       const e = document.createElement("div");
       e.innerHTML = `
-          <div class="searchResult">
-              <div class="searchResultUser"><img src="${user.profile_image_url}"/><a href="/${user.screen_name}">${user.screen_name}</a></div>
+         
+              <a class="searchResult" href="/${user.screen_name}"><img src="${user.profile_image_url}"/><div class="searchResultUser"><p><strong>${user.name}</strong></p><p>@${user.screen_name}</p></div></a>
 
-          </div>
+          
       `;
       return e;
     })
