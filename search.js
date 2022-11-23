@@ -419,6 +419,7 @@ async function main() {
             const dropdown3 = mutation.target.querySelector(
               "#typeaheadDropdown-3"
             );
+            // TODO: there's typeaheadDropdown-9, might need to just look for all of them
             if (dropdown) {
               modifyDropdown(dropdown);
             } else if (dropdown2) {
