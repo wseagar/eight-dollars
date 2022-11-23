@@ -1,7 +1,15 @@
 let searchInput;
 
-const bearerToken = webpackChunk_twitter_responsive_web[2][1][63752].toString().match(/l="([A-Za-z0-9\%]+)"/)[1]
-console.log('[TWITTER API] bearerToken', bearerToken)
+const bearerToken = webpackChunk_twitter_responsive_web[2][1][63752]
+  .toString()
+  .match(/l="([A-Za-z0-9\%]+)"/)[1];
+console.log("[TWITTER API] bearerToken", bearerToken);
+
+const csrfToken = Object.fromEntries(
+  document.cookie.split(";").map((e) => e.split("="))
+)[" ct0"];
+
+console.log("[TWITTER API] CSRF TOKEN", csrfToken);
 
 function modifyDropdown(node) {
   if (node.dataset.processed || !searchInput) {
@@ -133,9 +141,9 @@ async function fetchSearchResults(value) {
     `https://twitter.com/i/api/1.1/search/typeahead.json?include_ext_is_blue_verified=1&q=${user}&src=search_box&result_type=events%2Cusers%2Ctopics`,
     {
       headers: {
-        authorization: "todo",
+        authorization: `Bearer ${bearerToken}`,
         accept: "application/json",
-        "x-csrf-token": "todo",
+        "x-csrf-token": csrfToken,
       },
       method: "GET",
     }
@@ -146,10 +154,17 @@ async function fetchSearchResults(value) {
   }
   const json = await result.json();
 
+  console.log(json);
+
   const names = json.users.map((user) => user.screen_name);
+  console.log(names);
   const elm = document.querySelector(".searchContainer");
   elm.prepend(
-    names.map((name) => document.createElement("div").innerHTML(name))
+    ...names.map((name) => {
+      const e = document.createElement("div");
+      e.innerText = name;
+      return e;
+    })
   );
 }
 
