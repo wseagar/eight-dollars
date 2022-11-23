@@ -128,7 +128,7 @@ function modifyDropdown(node) {
   padding: 0.5rem 1rem;
 }
 .searchResult.eightDollarsFocused {
-  background-color: red;
+  background-color: rgb(255 255 255 / 10%);
 }
 
 .searchResult img {
