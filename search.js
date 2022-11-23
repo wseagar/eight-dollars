@@ -223,14 +223,14 @@ async function fetchSearchResults(value) {
   const elm = document.querySelector(".searchContainer");
   elm.prepend(
     ...json.users.map((user) => {
-      const e = document.createElement("div");
-      e.innerHTML = `
+      const userRow = document.createElement("div");
+      userRow.innerHTML = `
          
               <a class="searchResult" href="/${user.screen_name}"><img src="${user.profile_image_url}"/><div class="searchResultUser"><p><strong>${user.name}</strong></p><p>@${user.screen_name}</p></div></a>
 
           
       `;
-      e.addEventListener("click", function (e) {
+      userRow.addEventListener("click", function (e) {
         e.preventDefault();
         const elm = document.querySelector(
           "input[placeholder='Search Twitter']"
@@ -239,7 +239,7 @@ async function fetchSearchResults(value) {
         elm.dispatchEvent(new Event("input", { bubbles: true }));
         elm.focus();
       });
-      return e;
+      return userRow;
     })
   );
 }
