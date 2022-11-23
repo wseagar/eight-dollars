@@ -242,7 +242,11 @@ async function fetchSearchResults(value) {
   json.users.forEach((user) => {
     const userRow = document.createElement("a");
     userRow.classList.add("searchResult");
+    if (elm.dataset.eightDollarsFocusedScreenName === user.screen_name) {
+      userRow.classList.add("eightDollarsFocused");
+    }
     userRow.href = `/${user.screen_name}`;
+    userRow.dataset.eightDollarsScreenName = user.screen_name;
     userRow.innerHTML = `
         
             <img src="${user.profile_image_url}"/><div class="searchResultUser"><p><strong>${user.name}</strong></p><p>@${user.screen_name}</p></div>
@@ -309,6 +313,7 @@ function tagSelectDestinationSetNextFocus() {
   // set focused class on the next element
   if (next) {
     next.classList.add("eightDollarsFocused");
+    elm.dataset.eightDollarsFocusedScreenName = next.dataset.eightDollarsScreenName;
   }
 }
 
@@ -329,6 +334,7 @@ function tagSelectDestinationSetPreviousFocus() {
   // set focused class on the previous element
   if (previous) {
     previous.classList.add("eightDollarsFocused");
+    elm.dataset.eightDollarsFocusedScreenName = previous.dataset.eightDollarsScreenName;
   }
 }
 
