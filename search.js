@@ -24,12 +24,12 @@ function modifyDropdown(node) {
   <div class='searchContainer'>
   <div id='tagSelectDestination'></div>
   <h4 class="searchContainerMemeHeading">Search Options</h4>   
-  <button id='searchUser' class='searchItem'><strong>from:</strong> user</button>
-  <button id='searchMentions' class='searchItem'><strong>mentions:</strong> user</button>
-  <button id='searchLinks' class='searchItem'><strong>has:</strong> link, embed, or file</button>
-  <button id='searchBefore' class='searchItem'><strong>before:</strong> specific date</button>
-  <button id='searchDuring' class='searchItem'><strong>during:</strong> specific date</button>
-  <button id='searchAfter' class='searchItem'><strong>after:</strong> specific date</button>
+  <input type="button" id='searchUser' class='searchItem'><strong>from:</strong> user</input>
+  <input type="button" id='searchMentions' class='searchItem'><strong>mentions:</strong> user</input>
+  <input type="button" id='searchLinks' class='searchItem'><strong>has:</strong> link, embed, or file</input>
+  <input type="button" id='searchBefore' class='searchItem'><strong>before:</strong> specific date</input>
+  <input type="button" id='searchDuring' class='searchItem'><strong>during:</strong> specific date</input>
+  <input type="button" id='searchAfter' class='searchItem'><strong>after:</strong> specific date</input>
   <style>
   .searchContainer {
     padding-bottom: 1rem;
@@ -248,10 +248,10 @@ async function fetchSearchResults(value) {
 
       while (elm.firstChild) {
         elm.removeChild(elm.firstChild);
-      }    
+      }
     });
     elm.appendChild(userRow);
-  })
+  });
 }
 
 function hookInput(node) {
@@ -284,8 +284,7 @@ async function main() {
           );
           if (dropdown) {
             modifyDropdown(dropdown);
-          }
-          else if (dropdown2) {
+          } else if (dropdown2) {
             modifyDropdown(dropdown2);
           }
         }
@@ -306,8 +305,7 @@ async function main() {
             );
             if (dropdown) {
               modifyDropdown(dropdown);
-            }
-            else if (dropdown2) {
+            } else if (dropdown2) {
               modifyDropdown(dropdown2);
             }
           }
