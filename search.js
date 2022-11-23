@@ -1,5 +1,8 @@
 let searchInput;
 
+const bearerToken = webpackChunk_twitter_responsive_web[2][1][63752].toString().match(/l="([A-Za-z0-9\%]+)"/)[1]
+console.log('[TWITTER API] bearerToken', bearerToken)
+
 function modifyDropdown(node) {
   if (node.dataset.processed || !searchInput) {
     // already processed
