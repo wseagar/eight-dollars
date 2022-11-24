@@ -31,83 +31,43 @@ async function fetchSearchResults(user) {
   return json;
 }
 
-function onSubmitSearch(search, user) {
+function onSubmitSearch(search, tags) {
   const baseUrl = "https://twitter.com/search?q=";
   let url = baseUrl + encodeURIComponent(search);
-  if (user) {
-    url += encodeURIComponent(` (from:${user})`);
+  for (const tag of tags) {
+    const user = tag.user;
+    const type = tag.type;
+    if (type === "from" || type === "to") {
+      url += encodeURIComponent(` (${type}:${user})`);
+    } else if (type === "mentions") {
+      url += encodeURIComponent(` (@${user})`);
+    }
   }
   url += "&src=typed_query";
   document.location.href = url;
 }
 
-// function hookInput(node) {
-//   searchInput = node;
-
-//   node.addEventListener("keydown", function (e) {
-//     if (e.target.value === "" && e.key === "Backspace") {
-//       removeElements(".eightDollarsSearchTags");
-//     }
-
-//     const { user, query } = getSearchTokens(e.target.value);
-
-//     // console.log("keydown", e.nativeEvent.which);
-//     if (user && !query) {
-//       fetchSearchResults(user);
-//     }
-
-//     if (user && query) {
-//       createTag(user, query);
-//     }
-
-//     console.log(e.key);
-//     if (e.key === "Enter") {
-//       e.preventDefault();
-//       e.stopPropagation();
-//       if (
-//         document.querySelector("#tagSelectDestination").dataset
-//           .eightDollarsFocusedScreenName
-//       ) {
-//         selectFromTag(
-//           document.querySelector("#tagSelectDestination").dataset
-//             .eightDollarsFocusedScreenName
-//         );
-//       } else {
-//         onSubmitSearch(e.target.value);
-//       }
-//       return false;
-//     }
-
-//     if (e.nativeEvent.which == 38) {
-//       // down
-//       e.preventDefault();
-//       e.stopPropagation();
-//       tagSelectDestinationSetPreviousFocus();
-//       return false;
-//     } else if (e.nativeEvent.which == 40) {
-//       // up
-//       e.preventDefault();
-//       e.stopPropagation();
-
-//       tagSelectDestinationSetNextFocus();
-//       return false;
-//     }
-//   });
-// }
-
 function getSearchTokens(searchValue) {
-  const regex = /from:\s?@?(?<user>\w*)/;
+  const regex = /(?<type>from|to|mentions):\s?@?(?<user>\w*)(?<query>.*)/;
   const match = searchValue.match(regex);
 
-  if (match === null || match.groups === null || !match.groups.user) {
-    return { query: searchValue, user: undefined };
+  if (match === null) {
+    return { query: searchValue, user: undefined, type: undefined };
   }
-  const query = searchValue.replace(regex, "");
+  const result = {
+    user: match.groups.user,
+    query: match.groups.query,
+    type: match.groups.type,
+  };
+  console.log(result);
 
-  return { user: match.groups.user, query };
+  return result;
 }
 
-const SEARCH_USER_BUTTON = "searchUser";
+const SEARCH_FROM_BUTTON = "searchFrom";
+const SEARCH_TO_BUTTON = "searchTo";
+const SEARCH_MENTIONS_BUTTON = "searchMentions";
+
 const SEARCH_RESULT_SELECTOR = ".searchResult";
 const SEARCH_RESULT_CONTAINER = "#tagSelectDestination";
 
@@ -115,6 +75,12 @@ class Hook {
   constructor() {
     this.input = undefined;
     this.dropdown = undefined;
+
+    this.keydownListener = this.keydownListener.bind(this);
+
+    this.onSearchFromClick = this.onSearchFromClick.bind(this);
+    this.onSearchToClick = this.onSearchToClick.bind(this);
+    this.onSearchMentionsClick = this.onSearchMentionsClick.bind(this);
   }
 
   hookInput(element) {
@@ -133,20 +99,44 @@ class Hook {
 
   init() {
     // setup event listeners on input
-    this.input.addEventListener("keydown", this.keydownListener.bind(this));
+    this.input.removeEventListener("keydown", this.keydownListener);
+    this.input.addEventListener("keydown", this.keydownListener);
 
     // create new settings menu in the dropdown
-    const container = document.createElement("div");
-    container.innerHTML = DROPDOWN_HTML;
-    this.dropdown.prepend(container);
+    const exists = document.querySelector(".searchContainer");
+    if (!exists) {
+      const container = document.createElement("div");
+      container.innerHTML = DROPDOWN_HTML;
+      this.dropdown.prepend(container);
+    }
 
     // setup event listeners in the DROPDOWN_HTML
-    const searchUserButton = document.querySelector(`#${SEARCH_USER_BUTTON}`);
-    // Sets "from: " into the input field
-    searchUserButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      this.setInput("from: ");
-    });
+    const searchFromButton = document.querySelector(`#${SEARCH_FROM_BUTTON}`);
+    searchFromButton.removeEventListener("click", this.onSearchFromClick);
+    searchFromButton.addEventListener("click", this.onSearchFromClick);
+
+    const searchToButton = document.querySelector(`#${SEARCH_TO_BUTTON}`);
+    searchToButton.removeEventListener("click", this.onSearchToClick);
+    searchToButton.addEventListener("click", this.onSearchToClick);
+
+    const searchMentions = document.querySelector(`#${SEARCH_MENTIONS_BUTTON}`);
+    searchMentions.removeEventListener("click", this.onSearchMentionsClick);
+    searchMentions.addEventListener("click", this.onSearchMentionsClick);
+  }
+
+  onSearchFromClick(e) {
+    e.preventDefault();
+    this.setInput("from: ");
+  }
+
+  onSearchToClick(e) {
+    e.preventDefault();
+    this.setInput("to: ");
+  }
+
+  onSearchMentionsClick(e) {
+    e.preventDefault();
+    this.setInput("mentions: ");
   }
 
   async keydownListener(e) {
@@ -155,43 +145,63 @@ class Hook {
     if (e.key === "ArrowDown") {
       e.preventDefault();
       e.stopPropagation();
-      this.tagSelectDestinationSetNextFocus()
-      return false
-    }
-    else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      e.stopPropagation();
-      this.tagSelectDestinationSetPreviousFocus()
-      return false
-    }
-    else if (e.key === 'Enter' && elm && elm.dataset.eightDollarsFocusedScreenName !== "") {
-      e.preventDefault();
-      e.stopPropagation();
-      const { query } = getSearchTokens(e.target.value);
-      console.log('*** eightDollarsFocusedScreenName',elm.dataset.eightDollarsFocusedScreenName)
-      this.createTag(elm.dataset.eightDollarsFocusedScreenName, query);
-      return false
+      this.tagSelectDestinationSetNextFocus();
+      return;
     }
 
-    const { user, query } = getSearchTokens(e.target.value);
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      e.stopPropagation();
+      this.tagSelectDestinationSetPreviousFocus();
+      return;
+    }
+
+    if (
+      e.key === "Enter" &&
+      elm &&
+      elm.dataset.eightDollarsFocusedScreenName !== ""
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+      const { query, type } = getSearchTokens(e.target.value);
+      console.log(
+        "*** eightDollarsFocusedScreenName",
+        elm.dataset.eightDollarsFocusedScreenName,
+        query,
+        type
+      );
+      this.createTag(elm.dataset.eightDollarsFocusedScreenName, query, type);
+      elm.dataset.eightDollarsFocusedScreenName = "";
+
+      return;
+    }
+
+    const { user, query, type } = getSearchTokens(e.target.value);
 
     // If there is a user and no query, fetch search results
     // IE "from: @willsea"
     if (user && !query) {
       const searchResults = await fetchSearchResults(user);
       this.renderSearchResults(searchResults);
+      return;
     }
 
     // If theres a user and a query, parse out the user to create a tag (this should occur on the first char after the user)
     // IE "from: @willsea hello world"
     if (user && query) {
-      this.createTag(user, query);
+      this.createTag(user, query, type);
+      return;
     }
 
     if (e.key === "Enter") {
       e.preventDefault();
       e.stopPropagation();
-      onSubmitSearch(e.target.value);
+      const tags = document.querySelectorAll(".eightDollarsSearchTags");
+      const tagValues = Array.from(tags).map((tag) => ({
+        user: tag.dataset.user,
+        type: tag.dataset.type,
+      }));
+      onSubmitSearch(e.target.value, tagValues);
     }
   }
 
@@ -200,12 +210,11 @@ class Hook {
     removeElements(SEARCH_RESULT_SELECTOR);
     // 2. Get search results container
     const elm = document.querySelector(SEARCH_RESULT_CONTAINER);
-    console.log(elm);
 
     // 3. Add new search results
     searchResults.users.forEach((user) => {
       const userRow = document.createElement("div");
-      userRow.classList.add('searchResult');
+      userRow.classList.add("searchResult");
 
       if (elm.dataset.eightDollarsFocusedScreenName === user.screen_name) {
         userRow.classList.add("eightDollarsFocused");
@@ -219,8 +228,6 @@ class Hook {
       elm.appendChild(userRow);
     });
   }
-
-
 
   tagSelectDestinationSetNextFocus() {
     const elm = document.querySelector(SEARCH_RESULT_CONTAINER);
@@ -268,14 +275,21 @@ class Hook {
     }
   }
 
-  createTag(user, query) {
+  createTag(user, query, type = "from") {
     const elm = document.querySelector(SEARCH_RESULT_CONTAINER);
     const d = document.createElement("div");
     d.classList.add("eightDollarsSearchTags");
     d.dataset.user = user;
-    d.innerHTML = `<div class="searchTag"><strong>User:</strong> ${user}</div>`;
+    d.dataset.type = type;
+    if (type === "from") {
+      d.innerHTML = `<div class="searchTag"><strong>From:</strong> ${user}</div>`;
+    } else if (type === "to") {
+      d.innerHTML = `<div class="searchTag"><strong>To:</strong> ${user}</div>`;
+    } else if (type === "mentions") {
+      d.innerHTML = `<div class="searchTag"><strong>Mentions:</strong> ${user}</div>`;
+    }
     elm.appendChild(d);
-    this.setInput(query);
+    this.setInput(" " + query.trimStart());
     removeElements(SEARCH_RESULT_SELECTOR);
   }
 
@@ -382,12 +396,9 @@ const DROPDOWN_HTML = `
 <div class="searchContainer">
   <div id="tagSelectDestination"></div>
   <h4 class="searchContainerMemeHeading">Search Options</h4>
-  <a id="searchUser" class="searchItem"><strong>from:</strong> user</a>
+  <a id="searchFrom" class="searchItem"><strong>from:</strong> user</a>
+  <a id="searchTo" class="searchItem"><strong>to:</strong> user</a>
   <a id="searchMentions" class="searchItem"><strong>mentions:</strong> user</a>
-  <a id="searchLinks" class="searchItem"><strong>has:</strong> link, embed, or file</a>
-  <a id="searchBefore" class="searchItem"><strong>before:</strong> specific date</a>
-  <a id="searchDuring" class="searchItem"><strong>during:</strong> specific date</a>
-  <a id="searchAfter" class="searchItem"><strong>after:</strong> specific date</a>
   <style>
     .searchContainer {
       padding-bottom: 1rem;
