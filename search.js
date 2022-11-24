@@ -223,7 +223,8 @@ class Hook {
       userRow.dataset.eightDollarsScreenName = user.screen_name;
       userRow.innerHTML = `<img src="${user.profile_image_url}"/><div class="searchResultUser"><p><strong>${user.name}</strong></p><p>@${user.screen_name}</p></div>`;
       userRow.addEventListener("click", () => {
-        this.createTag(user.screen_name, " ", true);
+        const { query, type } = getSearchTokens(this.input.value);
+        this.createTag(user.screen_name, query, type);
       });
       elm.appendChild(userRow);
     });
