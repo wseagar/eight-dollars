@@ -22,7 +22,8 @@
         }
     ],
     "web_accessible_resources": [
-        "script.js"
+        "script.js",
+        "search.js"
     ],
     "permissions": [
         "storage"
