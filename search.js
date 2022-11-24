@@ -359,18 +359,10 @@ const DROPDOWN_HTML = `
   <h4 class="searchContainerMemeHeading">Search Options</h4>
   <a id="searchUser" class="searchItem"><strong>from:</strong> user</a>
   <a id="searchMentions" class="searchItem"><strong>mentions:</strong> user</a>
-  <a id="searchLinks" class="searchItem"
-    ><strong>has:</strong> link, embed, or file</a
-  >
-  <a id="searchBefore" class="searchItem"
-    ><strong>before:</strong> specific date</a
-  >
-  <a id="searchDuring" class="searchItem"
-    ><strong>during:</strong> specific date</a
-  >
-  <a id="searchAfter" class="searchItem"
-    ><strong>after:</strong> specific date</a
-  >
+  <a id="searchLinks" class="searchItem"><strong>has:</strong> link, embed, or file</a>
+  <a id="searchBefore" class="searchItem"><strong>before:</strong> specific date</a>
+  <a id="searchDuring" class="searchItem"><strong>during:</strong> specific date</a>
+  <a id="searchAfter" class="searchItem"><strong>after:</strong> specific date</a>
   <style>
     .searchContainer {
       padding-bottom: 1rem;
