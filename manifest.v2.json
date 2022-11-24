@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Eight Dollars",
-    "version": "1.4",
+    "version": "1.5",
     "description": "Eight Dollars can help you tell the difference between actual verified accounts and twitter blue users.",
     "icons": {
         "16": "./assets/16.png",
