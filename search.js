@@ -182,7 +182,7 @@ class Hook {
     // 3. Add new search results
     searchResults.users.forEach((user) => {
       const userRow = document.createElement("div");
-      userRow.classList.add(SEARCH_RESULT_SELECTOR);
+      userRow.classList.add('searchResult');
 
       // if (elm.dataset.eightDollarsFocusedScreenName === user.screen_name) {
       //   userRow.classList.add("eightDollarsFocused");
