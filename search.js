@@ -150,6 +150,8 @@ class Hook {
   }
 
   async keydownListener(e) {
+    const elm = document.querySelector(SEARCH_RESULT_CONTAINER);
+
     if (e.key === "ArrowDown") {
       e.preventDefault();
       e.stopPropagation();
@@ -160,6 +162,14 @@ class Hook {
       e.preventDefault();
       e.stopPropagation();
       this.tagSelectDestinationSetPreviousFocus()
+      return false
+    }
+    else if (e.key === 'Enter' && elm && elm.dataset.eightDollarsFocusedScreenName !== "") {
+      e.preventDefault();
+      e.stopPropagation();
+      const { query } = getSearchTokens(e.target.value);
+      console.log('*** eightDollarsFocusedScreenName',elm.dataset.eightDollarsFocusedScreenName)
+      this.createTag(elm.dataset.eightDollarsFocusedScreenName, query);
       return false
     }
 
