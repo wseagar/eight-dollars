@@ -150,6 +150,29 @@ class Hook {
   }
 
   async keydownListener(e) {
+    const elm = document.querySelector(SEARCH_RESULT_CONTAINER);
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      e.stopPropagation();
+      this.tagSelectDestinationSetNextFocus()
+      return false
+    }
+    else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      e.stopPropagation();
+      this.tagSelectDestinationSetPreviousFocus()
+      return false
+    }
+    else if (e.key === 'Enter' && elm && elm.dataset.eightDollarsFocusedScreenName !== "") {
+      e.preventDefault();
+      e.stopPropagation();
+      const { query } = getSearchTokens(e.target.value);
+      console.log('*** eightDollarsFocusedScreenName',elm.dataset.eightDollarsFocusedScreenName)
+      this.createTag(elm.dataset.eightDollarsFocusedScreenName, query);
+      return false
+    }
+
     const { user, query } = getSearchTokens(e.target.value);
 
     // If there is a user and no query, fetch search results
@@ -184,9 +207,9 @@ class Hook {
       const userRow = document.createElement("div");
       userRow.classList.add('searchResult');
 
-      // if (elm.dataset.eightDollarsFocusedScreenName === user.screen_name) {
-      //   userRow.classList.add("eightDollarsFocused");
-      // }
+      if (elm.dataset.eightDollarsFocusedScreenName === user.screen_name) {
+        userRow.classList.add("eightDollarsFocused");
+      }
 
       userRow.dataset.eightDollarsScreenName = user.screen_name;
       userRow.innerHTML = `<img src="${user.profile_image_url}"/><div class="searchResultUser"><p><strong>${user.name}</strong></p><p>@${user.screen_name}</p></div>`;
@@ -195,6 +218,54 @@ class Hook {
       });
       elm.appendChild(userRow);
     });
+  }
+
+
+
+  tagSelectDestinationSetNextFocus() {
+    const elm = document.querySelector(SEARCH_RESULT_CONTAINER);
+
+    // find the element that currently has focus
+    const focused = elm.querySelector(".eightDollarsFocused");
+
+    // remove focus from the element that currently has focus
+    if (focused) {
+      focused.classList.remove("eightDollarsFocused");
+    }
+
+    // find the next element
+    let next = focused ? focused.nextElementSibling : elm.firstElementChild;
+
+    // set focused class on the next element
+    if (next) {
+      next.classList.add("eightDollarsFocused");
+      elm.dataset.eightDollarsFocusedScreenName =
+        next.dataset.eightDollarsScreenName;
+    }
+  }
+
+  tagSelectDestinationSetPreviousFocus() {
+    const elm = document.querySelector(SEARCH_RESULT_CONTAINER);
+
+    // find the element that currently has focus
+    const focused = elm.querySelector(".eightDollarsFocused");
+
+    // remove focus from the element that currently has focus
+    if (focused) {
+      focused.classList.remove("eightDollarsFocused");
+    }
+
+    // find the previous element
+    let previous = focused
+      ? focused.previousElementSibling
+      : elm.lastElementChild;
+
+    // set focused class on the previous element
+    if (previous) {
+      previous.classList.add("eightDollarsFocused");
+      elm.dataset.eightDollarsFocusedScreenName =
+        previous.dataset.eightDollarsScreenName;
+    }
   }
 
   createTag(user, query) {
@@ -441,6 +512,12 @@ const DROPDOWN_HTML = `
     .searchResult.eightDollarsFocused {
       background-color: rgb(255 255 255 / 10%);
     }
+    @media (prefers-color-scheme: light) {
+      .searchResult.eightDollarsFocused {
+        background-color: rgb(0 0 0 / 10%);
+      }
+    }
+
 
     .searchResult img {
       border-radius: 1200px;
