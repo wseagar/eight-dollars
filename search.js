@@ -12,7 +12,7 @@ const csrfToken = Object.fromEntries(
 )[" ct0"];
 
 function modifyDropdown(node) {
-  if (node.dataset.processed || !searchInput) {
+  if (!searchInput) {
     // already processed
     return;
   }
@@ -188,7 +188,6 @@ color: black;
     const elm = document.querySelector("input[placeholder='Search Twitter']");
     triggerSetStateReactInput(elm, "from:", true);
   });
-  node.dataset.processed = true;
 }
 
 function triggerSetStateReactInput(elm, value, focus = false) {
@@ -233,8 +232,6 @@ async function fetchSearchResults(user) {
     return;
   }
   const json = await result.json();
-
-  const names = json.users.map((user) => user.screen_name);
   removeElements(".searchResult");
 
   const elm = document.querySelector("#tagSelectDestination");
@@ -353,10 +350,6 @@ function removeElements(selector) {
 }
 
 function hookInput(node) {
-  if (node.dataset.processed) {
-    // already processed
-    return;
-  }
   searchInput = node;
 
   node.addEventListener("keydown", function (e) {
@@ -408,71 +401,63 @@ function hookInput(node) {
       return false;
     }
   });
-
-  node.dataset.processed = true;
 }
 
-async function main() {
-  const observer = new MutationObserver(function (mutations, observer) {
-    try {
-      for (const mutation of mutations) {
-        if (mutation.type === "attributes") {
-          const dropdown = mutation.target.querySelector(
-            "#typeaheadDropdown-1"
-          );
-          const dropdown2 = mutation.target.querySelector(
-            "#typeaheadDropdown-2"
-          );
-          const dropdown3 = mutation.target.querySelector(
-            "#typeaheadDropdown-3"
-          );
-          if (dropdown) {
-            modifyDropdown(dropdown);
-          } else if (dropdown2) {
-            modifyDropdown(dropdown2);
-          } else if (dropdown3) {
-            modifyDropdown(dropdown3);
-          }
-        }
-        for (const node of mutation.addedNodes) {
-          if (node.nodeType === 1) {
-            const input = node.querySelector(
-              "input[placeholder='Search Twitter']"
-            );
-            if (input) {
-              hookInput(input);
-            }
+class Observer {
+  constructor() {
+    this._hooks = [];
+    this._observer = null;
+  }
 
-            const dropdown = mutation.target.querySelector(
-              "#typeaheadDropdown-1"
-            );
-            const dropdown2 = mutation.target.querySelector(
-              "#typeaheadDropdown-2"
-            );
-            const dropdown3 = mutation.target.querySelector(
-              "#typeaheadDropdown-3"
-            );
-            // TODO: there's typeaheadDropdown-9, might need to just look for all of them
-            if (dropdown) {
-              modifyDropdown(dropdown);
-            } else if (dropdown2) {
-              modifyDropdown(dropdown2);
-            } else if (dropdown3) {
-              modifyDropdown(dropdown3);
+  addHook(selector, callback) {
+    this._hooks.push({ selector, callback });
+  }
+
+  observerCallback(mutations) {
+    for (const mutation of mutations) {
+      // attribute modifications
+      if (mutation.type === "attributes") {
+        for (const hook of this._hooks) {
+          const element = mutation.target.querySelector(hook.selector);
+          if (element) {
+            if (!element.dataset.processed) {
+              hook.callback(element);
+              element.dataset.processed = true;
             }
           }
         }
       }
-    } catch (error) {
-      console.log("uncaught mutation error", error);
-    }
-  });
 
-  observer.observe(document, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-  });
+      // dom additions
+      for (const node of mutation.addedNodes) {
+        if (node.nodeType === 1) {
+          for (const hook of this._hooks) {
+            const element = node.querySelector(hook.selector);
+            if (element) {
+              if (!element.dataset.processed) {
+                hook.callback(element);
+                element.dataset.processed = true;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  observe() {
+    this._observer = new MutationObserver(this.observerCallback.bind(this));
+    this._observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+    });
+  }
 }
 
-main();
+const observer = new Observer();
+observer.addHook("#typeaheadDropdown-1", modifyDropdown);
+observer.addHook("#typeaheadDropdown-2", modifyDropdown);
+observer.addHook("#typeaheadDropdown-3", modifyDropdown);
+observer.addHook("input[placeholder='Search Twitter']", hookInput);
+observer.observe();
