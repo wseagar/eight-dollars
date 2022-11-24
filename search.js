@@ -41,52 +41,6 @@ function onSubmitSearch(search, user) {
   document.location.href = url;
 }
 
-// function tagSelectDestinationSetNextFocus() {
-//   const elm = document.querySelector("#tagSelectDestination");
-
-//   // find the element that currently has focus
-//   const focused = elm.querySelector(".eightDollarsFocused");
-
-//   // remove focus from the element that currently has focus
-//   if (focused) {
-//     focused.classList.remove("eightDollarsFocused");
-//   }
-
-//   // find the next element
-//   let next = focused ? focused.nextElementSibling : elm.firstElementChild;
-
-//   // set focused class on the next element
-//   if (next) {
-//     next.classList.add("eightDollarsFocused");
-//     elm.dataset.eightDollarsFocusedScreenName =
-//       next.dataset.eightDollarsScreenName;
-//   }
-// }
-
-// function tagSelectDestinationSetPreviousFocus() {
-//   const elm = document.querySelector("#tagSelectDestination");
-
-//   // find the element that currently has focus
-//   const focused = elm.querySelector(".eightDollarsFocused");
-
-//   // remove focus from the element that currently has focus
-//   if (focused) {
-//     focused.classList.remove("eightDollarsFocused");
-//   }
-
-//   // find the previous element
-//   let previous = focused
-//     ? focused.previousElementSibling
-//     : elm.lastElementChild;
-
-//   // set focused class on the previous element
-//   if (previous) {
-//     previous.classList.add("eightDollarsFocused");
-//     elm.dataset.eightDollarsFocusedScreenName =
-//       previous.dataset.eightDollarsScreenName;
-//   }
-// }
-
 // function hookInput(node) {
 //   searchInput = node;
 
