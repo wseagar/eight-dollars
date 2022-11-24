@@ -18,8 +18,10 @@ function saveOptions() {
   const removeBlueVerification = document.getElementById(
     "removeBlueVerification"
   ).checked;
+  const advancedSearch = document.getElementById("advancedSearch").checked;
   chrome.storage.local.set(
     {
+      advancedSearch,
       memeMode,
       textEnabled,
       removeBlueVerification,
@@ -44,6 +46,7 @@ function closeOptions() {
 function restoreOptions() {
   chrome.storage.local.get(
     {
+      advancedSearch: true,
       memeMode: false,
       textEnabled: true,
       removeBlueVerification: false,
@@ -64,6 +67,7 @@ function restoreOptions() {
         items.textOptions.enableBorder;
       document.getElementById("removeBlueVerification").checked =
         items.removeBlueVerification;
+      document.getElementById("advancedSearch").checked = items.advancedSearch;
       onTextEnabledChange();
     }
   );

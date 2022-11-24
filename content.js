@@ -1,4 +1,5 @@
 const defaultConfig = {
+  advancedSearch: true,
   memeMode: false,
   textEnabled: true,
   removeBlueVerification: false,
@@ -39,10 +40,14 @@ if (typeof chrome !== "undefined" && chrome.storage) {
   chrome.storage.local.get(defaultConfig, function (items) {
     createSettingsDomNode(items);
     injectScript();
-    injectSearch();
+    if (items.advancedSearch) {
+      injectSearch();
+    }
   });
 } else {
   createSettingsDomNode(defaultConfig);
   injectScript();
-  injectSearch();
+  if (defaultConfig.advancedSearch) {
+    injectSearch();
+  }
 }
