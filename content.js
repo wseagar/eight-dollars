@@ -1,5 +1,5 @@
 const defaultConfig = {
-  advancedSearch: true,
+  advancedSearch: false,
   memeMode: false,
   textEnabled: true,
   removeBlueVerification: false,
