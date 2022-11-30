@@ -1,5 +1,6 @@
 const defaultConfig = {
   advancedSearch: false,
+  advancedSearchMigratedToFalseOnce: false,
   memeMode: false,
   textEnabled: true,
   removeBlueVerification: false,
@@ -38,10 +39,26 @@ function injectSearch() {
 
 if (typeof chrome !== "undefined" && chrome.storage) {
   chrome.storage.local.get(defaultConfig, function (items) {
-    createSettingsDomNode(items);
-    injectScript();
-    if (items.advancedSearch) {
-      injectSearch();
+    if (!items.advancedSearchMigratedToFalseOnce) {
+      chrome.storage.local.set({
+        advancedSearch: false,
+        advancedSearchMigratedToFalseOnce: true,
+      }, function () {
+        items.advancedSearch = false;
+        items.advancedSearchMigratedToFalseOnce = true;
+        createSettingsDomNode(items);
+        injectScript();
+        if (items.advancedSearch) {
+          injectSearch();
+        }
+      })
+    }
+    else {
+      createSettingsDomNode(items);
+      injectScript();
+      if (items.advancedSearch) {
+        injectSearch();
+      }
     }
   });
 } else {
