@@ -1,5 +1,20 @@
 ﻿# eight-dollars
 
+---------
+
+<p align="center">
+  </br></br>
+  <a href="https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki">
+    <img height="58" src="https://i.imgur.com/K9Yh8G9.png" alt="Chrome Web Store"></a>
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/eightdollars/">
+    <img height="58" src="https://i.imgur.com/2jJOtTI.png" alt="Firefox add-ons"></a>
+  <a href="https://microsoftedge.microsoft.com/addons/detail/web-archives/apcfghlggldjdjepjnahfdjgdcdekhda">
+    <img height="58" src="https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki" alt="Microsoft Store"></a>
+  </br></br>
+</p>
+
+---------
+
 eight-dollars can help you tell the difference between actual verified accounts and twitter blue users. Just install the extension and see the difference.
 
 Maintained by [Will Seagar](https://twitter.com/willseagar), [Walter Lim](https://twitter.com/iWaltzAround), and [Ilia Sidorenko](https://twitter.com/noway421). 
