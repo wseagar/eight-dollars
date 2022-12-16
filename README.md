@@ -14,6 +14,11 @@
     <img height="58" src="https://i.imgur.com/IYYsrwg.png" alt="Opera add-ons (Coming soon!)"></a>
   </br></br>
 </p>
+<p align="center">
+  <a href="https://github.com/wseagar/eight-dollars#how-to-install-on-safari">
+    <img height="58" src="https://i.imgur.com/JGvQ2Zc.png" alt="Mac App Store (Coming soon)"></a>
+  </br></br>
+</p>
 
 ---------
 
