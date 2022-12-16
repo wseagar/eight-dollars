@@ -9,7 +9,9 @@
   <a href="https://addons.mozilla.org/en-US/firefox/addon/eightdollars/">
     <img height="58" src="https://i.imgur.com/2jJOtTI.png" alt="Firefox add-ons"></a>
   <a href="https://microsoftedge.microsoft.com/addons/detail/web-archives/apcfghlggldjdjepjnahfdjgdcdekhda">
-    <img height="58" src="https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki" alt="Microsoft Store"></a>
+    <img height="58" src="https://i.imgur.com/IYYsrwg.png" alt="Microsoft Store"></a>
+  <a href="https://github.com/wseagar/eight-dollars#how-to-install-on-opera">
+    <img height="58" src="https://i.imgur.com/IYYsrwg.png" alt="Opera add-ons (Coming soon!)"></a>
   </br></br>
 </p>
 
