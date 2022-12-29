@@ -46,7 +46,8 @@ function closeOptions() {
 function restoreOptions() {
   chrome.storage.local.get(
     {
-      advancedSearch: true,
+      advancedSearch: false,
+      advancedSearchMigratedToFalseOnce: false,
       memeMode: false,
       textEnabled: true,
       removeBlueVerification: false,
