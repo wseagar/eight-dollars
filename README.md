@@ -21,9 +21,13 @@ Found this useful? [Buy us a $8 coffee here](https://www.buymeacoffee.com/eightd
 
 ### How to install on Edge
 
+[Download it on the Microsoft Edge Add-ons page](https://microsoftedge.microsoft.com/addons/detail/eight-dollars/ehfacgbckjlegnlledgpkmkfbemhkknh) 
+
+### How to install on Opera
+
 1. [Vist the Chrome Web Store page](https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki)
-2. Click the banner at the top of the page that says "Enable extensions from other stores"
-3. Click "Add to chrome"
+2. Click "Add to Opera"
+3. Click "Install"
 
 ### How to install on Safari
 
