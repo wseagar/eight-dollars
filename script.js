@@ -308,7 +308,7 @@ const trackingBlueChecksProvidesDetails = new Set()
 function evaluateBlueCheck() {
   for (const blueCheckComponent of trackingBlueChecks.values()) {
     try {
-      const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent)
+      const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement, blueCheckComponent.parentElement)
 
       if (!nestedProps) {
         // some components don't have nested props,
@@ -357,7 +357,8 @@ function evaluateBlueCheckProvidesDetails() {
   for (const blueCheckEl of trackingBlueChecksProvidesDetails.values()) {
     const blueCheckComponent = blueCheckEl.parentElement
     try {
-      const nestedProps = getReactProps(blueCheckComponent.parentElement.parentElement.parentElement.parentElement, blueCheckComponent)
+      const nestedPropsOnEl = getReactProps(blueCheckComponent.parentElement.parentElement, blueCheckComponent.parentElement)
+      const nestedProps = nestedPropsOnEl.children[0][0].props
 
       const changeTarget = blueCheckComponent.querySelector(`[aria-label="${VERIFIED_ACCOUNT_ARIA_LABEL}"]`)
 
