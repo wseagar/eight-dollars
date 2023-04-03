@@ -220,7 +220,7 @@ function querySelectorAllIncludingMe(node, selector) {
   return [...node.querySelectorAll(selector)]
 }
 
-function getPreviusSiblingsOuterHTML(node) {
+function getPreviousSiblingsOuterHTML(node) {
   let prev = node.previousElementSibling;
   let html = [];
   while (prev) {
@@ -324,7 +324,7 @@ function evaluateBlueCheck() {
 
         const isSmall = checkIfSmall(blueCheckComponent)
         const isKnownBadData = checkIfKnownBadData(blueCheckComponent)
-        const prependHTML = getPreviusSiblingsOuterHTML(blueCheckComponent)
+        const prependHTML = getPreviousSiblingsOuterHTML(blueCheckComponent)
 
         if (isKnownBadData && nestedProps.isVerified && nestedProps.isBlueVerified) {
           changeVerified(prependHTML, blueCheckComponent, isSmall, true);
