@@ -24,9 +24,13 @@
     "default_popup": "options/options.html"
   },
   "applications": {
-    "gecko": {
-      "id": "willseagar@twitter",
-      "strict_min_version": "56.0a1"
-    }
+	"gecko": {
+	  "id": "twitter@willseagar",
+	  "strict_min_version": "42.0"
+	},
+	"gecko_android": {
+	  "id": "twitter@willseagar",
+	  "strict_min_version": "42.0"
+	}
   }
 }

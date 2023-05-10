@@ -31,10 +31,10 @@
     "default_popup": "options/options.html"
   },
   "permissions": ["storage"],
-  "applications": {
-    "gecko": {
-      "id": "willseagar@twitter",
-      "strict_min_version": "56.0a1"
-    }
-  }
+  "browser_specific_settings": {
+	"gecko": {
+	  "id": "twitter@willseagar",
+	  "strict_min_version": "42.0"
+	}
+  }  
 }
