@@ -4,7 +4,7 @@ eight-dollars can help you tell the difference between actual verified accounts 
 
 Maintained by [Will Seagar](https://twitter.com/willseagar), [Walter Lim](https://twitter.com/iWaltzAround), and [Ilia Sidorenko](https://twitter.com/noway421). 
 
-Found this useful? [Buy us a $8 coffee here](https://www.buymeacoffee.com/eightdollars).
+Found this useful? [Buy us an $8 coffee here](https://www.buymeacoffee.com/eightdollars).
 
 ![Some tweets](./assets/example.png)
 
@@ -25,7 +25,7 @@ Found this useful? [Buy us a $8 coffee here](https://www.buymeacoffee.com/eightd
 
 ### How to install on Opera
 
-1. [Vist the Chrome Web Store page](https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki)
+1. [Visit the Chrome Web Store page](https://chrome.google.com/webstore/detail/eight-dollars/fjbponfbognnefnmbffcfllkibbbobki)
 2. Click "Add to Opera"
 3. Click "Install"
 
