@@ -25,7 +25,7 @@
   },
   "applications": {
     "gecko": {
-      "id": "eight-dollars@willseagar.twitter",
+      "id": "willseagar@twitter",
       "strict_min_version": "56.0a1"
     }
   }

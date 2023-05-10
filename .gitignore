@@ -1,2 +1,7 @@
 .build/
 .release/
+/.idea/.gitignore
+/.idea/eight-dollars.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
