@@ -18,7 +18,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["script.js", "search.js", "data/verified.txt"],
+      "resources": ["script.js", "data/verified.txt"],
       "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*"]
     }
   ],
@@ -36,5 +36,5 @@
 	  "id": "twitter@willseagar",
 	  "strict_min_version": "42.0"
 	}
-  }  
+  }
 }
