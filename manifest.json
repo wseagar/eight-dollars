@@ -12,14 +12,14 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*","*://*.x.com/*"],
+      "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*", "https://x.com/*", "https://mobile.x.com/*"],
       "js": ["content.js"]
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["script.js", "search.js", "data/verified.txt"],
-      "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*","*://*.x.com/*"]
+      "resources": ["script.js", "data/verified.txt"],
+      "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*", "https://x.com/*", "https://mobile.x.com/*"]
     }
   ],
   "action": {
