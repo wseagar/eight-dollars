@@ -335,8 +335,9 @@ function handleProfileModification(containerElement, isBig) {
   const checkmarkContainer = ltr[0];
   const spans = checkmarkContainer.querySelectorAll("span");
   const checkmarkSpan = spans[spans.length - 1];
+  const protectd = checkmarkSpan.querySelectorAll('[aria-label="Protected account"]')[0]
 
-  if (!checkmarkSpan) {
+  if (!checkmarkSpan || protectd) {
     console.error("no checkmark span found");
     return;
   }
@@ -410,8 +411,9 @@ async function handleHeadingModification(containerElement, isBig) {
 
   const spans = containerElement.querySelectorAll("span");
   const checkmarkSpan = spans[spans.length - 1];
+  const protectd = checkmarkSpan.querySelectorAll('[aria-label="Protected account"]')[0]
 
-  if (!checkmarkSpan) {
+  if (!checkmarkSpan || protectd) {
     console.error("no checkmark span found");
     return;
   }
@@ -449,8 +451,9 @@ function handleModification(
   const ltr = containerElement.querySelectorAll('[dir="ltr"]');
   const checkmarkContainer = ltr[checkmarkIndex];
   const checkmarkSpan = checkmarkContainer.children?.[0];
+  const protectd = checkmarkSpan.querySelectorAll('[aria-label="Protected account"]')[0]
 
-  if (!checkmarkSpan) {
+  if (!checkmarkSpan || protectd) {
     return;
   }
 
