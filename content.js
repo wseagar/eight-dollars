@@ -1,11 +1,12 @@
 const defaultConfig = {
   memeMode: false,
-  textEnabled: true,
+  textEnabled: false,
   removeBlueVerification: false,
+  keepLegacyAccounts: false,
   textOptions: {
-    verifiedLabel: "Verified",
-    twitterBlueLabel: "Paid",
-    enableBorder: true,
+    verifiedLabel: "",
+    twitterBlueLabel: "",
+    enableBorder: false,
   },
 };
 

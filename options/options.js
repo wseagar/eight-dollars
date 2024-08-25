@@ -18,15 +18,19 @@ function saveOptions() {
   const removeBlueVerification = document.getElementById(
     "removeBlueVerification"
   ).checked;
+  const keepLegacyAccounts = document.getElementById(
+    "keepLegacyAccounts"
+  ).checked;
   chrome.storage.local.set(
     {
       memeMode,
       textEnabled,
       removeBlueVerification,
+      keepLegacyAccounts,
       textOptions: {
         verifiedLabel: textEnabled ? textVerifiedLabel : "",
         twitterBlueLabel: textEnabled ? twitterBlueVerifiedLabel : "",
-        enableBorder: textEnabled ? textEnableBorder : true,
+        enableBorder: textEnabled ? textEnableBorder : false,
       },
     },
     function () {
@@ -45,12 +49,13 @@ function restoreOptions() {
   chrome.storage.local.get(
     {
       memeMode: false,
-      textEnabled: true,
+      textEnabled: false,
       removeBlueVerification: false,
+      keepLegacyAccounts: false,
       textOptions: {
-        verifiedLabel: "Verified",
-        twitterBlueLabel: "Paid",
-        enableBorder: true,
+        verifiedLabel: "",
+        twitterBlueLabel: "",
+        enableBorder: false,
       },
     },
     function (items) {
@@ -64,6 +69,8 @@ function restoreOptions() {
         items.textOptions.enableBorder;
       document.getElementById("removeBlueVerification").checked =
         items.removeBlueVerification;
+      document.getElementById("keepLegacyAccounts").checked =
+        items.keepLegacyAccounts;
       onTextEnabledChange();
     }
   );
